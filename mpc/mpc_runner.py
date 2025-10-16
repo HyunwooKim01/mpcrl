@@ -8,7 +8,7 @@ from typing import Dict
 import paho.mqtt.client as mqtt
 import numpy as np
 
-from env import LettuceGreenHouse
+from greenhouse.env import LettuceGreenHouse
 from learning import LearningMpc  # 반드시 LearningMpc 구현 필요
 
 # ---------------- MQTT 설정 ----------------
@@ -167,3 +167,4 @@ def main():
 
 if __name__=="__main__":
     main()
+
