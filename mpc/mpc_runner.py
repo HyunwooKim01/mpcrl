@@ -6,8 +6,10 @@ import time
 import threading
 from typing import Dict
 import paho.mqtt.client as mqtt
+import numpy as np
 
-from learning import LearningMpc  # LearningMpc 구현 필요
+from env import LettuceGreenHouse
+from learning import LearningMpc  # 반드시 LearningMpc 구현 필요
 
 # ---------------- MQTT 설정 ----------------
 BROKER_HOST = "127.0.0.1"
@@ -46,7 +48,7 @@ def on_connect(client, userdata, flags, rc):
     client.subscribe(TOPIC_THETA_UPDATE, qos=MQTT_QOS)
 
 def on_message(client, userdata, msg):
-    global latest_state, theta
+    global latest_state, theta, mpc
     topic = msg.topic
     payload = msg.payload.decode("utf-8")
     try:
@@ -59,7 +61,8 @@ def on_message(client, userdata, msg):
         elif topic == TOPIC_THETA_UPDATE:
             theta.update(data)  # Fine-Tuning 결과 반영
             for k,v in data.items():
-                mpc.set_value(k,v)
+                if hasattr(mpc, "set_value"):
+                    mpc.set_value(k,v)
     except Exception as e:
         print(f"[MQTT] parse error: {e}")
 
@@ -86,19 +89,27 @@ def publish_actuators(client, cmd:Dict[str,float]):
 # ---------------- MPC 실행 ----------------
 class MpcRunner:
     def __init__(self):
-        global mpc
+        global mpc, theta
+        # 환경 객체 생성
+        greenhouse_env = LettuceGreenHouse(
+            growing_days=30,   # 필요에 따라 재배 일수 조정
+            model_type="rk4",
+            disturbance_profiles_type="single",
+        )
+
         # theta_params.json 로드
         with open("theta_params.json","r") as f:
-            global theta
             theta = json.load(f)["params"]
+
         mpc = LearningMpc(
-            greenhouse_env=None,  # 실제 센서 값은 build_state_vector로 전달
+            greenhouse_env=greenhouse_env,
             test=None,
-            np_random=None,
-            prediction_horizon=24,
+            np_random=np.random,
+            prediction_horizon=24,   # 6시간 * 4step/h
             prediction_model="rk4",
             constrain_control_rate=True
         )
+
         for k,v in theta.items():
             mpc.set_value(k,v)
         print("[MPC] 초기화 완료")
