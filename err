@@ -1,0 +1,18 @@
+rasp@raspberrypi:~/hyunwoo/mpcrl/mpc $ source ~/checkjin/.venv311/bin/activate
+(.venv311) rasp@raspberrypi:~/hyunwoo/mpcrl/mpc $ python mpc_runner.py 
+/home/rasp/hyunwoo/mpcrl/mpc/mpc_runner.py:134: DeprecationWarning: Callback API version 1 is deprecated, update to latest version
+  client = mqtt.Client(client_id=CLIENT_ID, clean_session=True)
+Traceback (most recent call last):
+[MQTT] Connected rc=0
+  File "/home/rasp/hyunwoo/mpcrl/mpc/mpc_runner.py", line 158, in <module>
+    main()
+  File "/home/rasp/hyunwoo/mpcrl/mpc/mpc_runner.py", line 141, in main
+    runner = MpcRunner()
+             ^^^^^^^^^^^
+  File "/home/rasp/hyunwoo/mpcrl/mpc/mpc_runner.py", line 94, in __init__
+    mpc = LearningMpc(
+          ^^^^^^^^^^^^
+  File "/home/rasp/hyunwoo/mpcrl/mpc/learning.py", line 46, in __init__
+    greenhouse_env.nx,
+    ^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'nx'
