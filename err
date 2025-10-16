@@ -128,3 +128,14 @@ Traceback (most recent call last):
   File "bit_generator.pyx", line 307, in numpy.random.bit_generator.SeedSequence.__init__
 TypeError: SeedSequence expects int or sequence of ints for entropy not <module 'numpy.random' from '/home/rasp/checkjin/.venv311/lib/python3.11/site-packages/numpy/random/__init__.py'>
 
+---
+rasp@raspberrypi:~/hyunwoo/mpcrl/mpc $ source ~/checkjin/.venv311/bin/activate
+(.venv311) rasp@raspberrypi:~/hyunwoo/mpcrl/mpc $ python mpc_runner.py 
+Traceback (most recent call last):
+  File "/home/rasp/hyunwoo/mpcrl/mpc/mpc_runner.py", line 24, in <module>
+    mpc = RealLearningMpc(
+          ^^^^^^^^^^^^^^^^
+  File "/home/rasp/hyunwoo/mpcrl/mpc/real_learning.py", line 27, in __init__
+    self.nd = 0
+    ^^^^^^^
+AttributeError: property 'nd' of 'RealLearningMpc' object has no setter
