@@ -163,3 +163,36 @@ Traceback (most recent call last):
     return getattr(self.nlp, name)
            ^^^^^^^^^^^^^^^^^^^^^^^
 AttributeError: 'Nlp' object has no attribute 'nu'. Did you mean: 'ng'?
+
+---
+(.venv311) rasp@raspberrypi:~/hyunwoo/mpcrl/mpc $ python mpc_runner.py 
+Traceback (most recent call last):
+  File "/home/rasp/hyunwoo/mpcrl/mpc/mpc_runner.py", line 24, in <module>
+    mpc = RealLearningMpc(
+          ^^^^^^^^^^^^^^^^
+  File "/home/rasp/hyunwoo/mpcrl/mpc/real_learning.py", line 38, in __init__
+    u, _ = self.action(
+           ^^^^^^^^^^^^
+  File "/home/rasp/checkjin/.venv311/lib/python3.11/site-packages/csnlp/wrappers/mpc/mpc.py", line 287, in action
+    u = self.nlp.variable(name, (size, nu_free), lb, ub)[0]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rasp/checkjin/.venv311/lib/python3.11/site-packages/csnlp/nlps/nlp.py", line 102, in variable
+    out = super().variable(name, shape, lb, ub)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rasp/checkjin/.venv311/lib/python3.11/site-packages/csnlp/nlps/objective.py", line 168, in variable
+    out = super().variable(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rasp/checkjin/.venv311/lib/python3.11/site-packages/csnlp/core/cache.py", line 101, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rasp/checkjin/.venv311/lib/python3.11/site-packages/csnlp/nlps/constraints.py", line 206, in variable
+    lb = np.broadcast_to(lb, shape).reshape(-1, order="F")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rasp/checkjin/.venv311/lib/python3.11/site-packages/numpy/lib/stride_tricks.py", line 413, in broadcast_to
+    return _broadcast_to(array, shape, subok=subok, readonly=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rasp/checkjin/.venv311/lib/python3.11/site-packages/numpy/lib/stride_tricks.py", line 349, in _broadcast_to
+    it = np.nditer(
+         ^^^^^^^^^^
+ValueError: operands could not be broadcast together with remapped shapes [original->remapped]: (3,1)  and requested shape (4,24)
+(.venv311) rasp@raspberrypi:~/hyunwoo/mpcrl/mpc $ 
