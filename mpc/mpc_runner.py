@@ -7,9 +7,7 @@ import threading
 from typing import Dict
 import paho.mqtt.client as mqtt
 import numpy as np
-
-from greenhouse.env import LettuceGreenHouse
-from learning import LearningMpc  # 반드시 LearningMpc 구현 필요
+from learning import LearningMpc  # 기존 클래스 그대로 사용
 
 # ---------------- MQTT 설정 ----------------
 BROKER_HOST = "127.0.0.1"
@@ -59,10 +57,9 @@ def on_message(client, userdata, msg):
                     if k in data:
                         latest_state[k] = float(data[k])
         elif topic == TOPIC_THETA_UPDATE:
-            theta.update(data)  # Fine-Tuning 결과 반영
+            theta.update(data)
             for k,v in data.items():
-                if hasattr(mpc, "set_value"):
-                    mpc.set_value(k,v)
+                mpc.set_value(k,v)
     except Exception as e:
         print(f"[MQTT] parse error: {e}")
 
@@ -82,7 +79,7 @@ def publish_actuators(client, cmd:Dict[str,float]):
         if topic:
             payload = json.dumps({"value":float(val),"ts":ts})
             client.publish(topic,payload=payload,qos=MQTT_QOS,retain=False)
-    # 상태 토픽도 퍼블리시 (Fine-Tuning용)
+    # 상태 토픽도 퍼블리시
     payload = json.dumps({"x": latest_state, "u": cmd})
     client.publish(TOPIC_STATE_UPDATE, payload=payload, qos=MQTT_QOS, retain=False)
 
@@ -90,28 +87,25 @@ def publish_actuators(client, cmd:Dict[str,float]):
 class MpcRunner:
     def __init__(self):
         global mpc, theta
-        # 환경 객체 생성
-        greenhouse_env = LettuceGreenHouse(
-            growing_days=30,   # 필요에 따라 재배 일수 조정
-            model_type="rk4",
-            disturbance_profiles_type="single",
-        )
 
-        # theta_params.json 로드
+        # theta 파라미터 로드
         with open("theta_params.json","r") as f:
             theta = json.load(f)["params"]
 
-        mpc = LearningMpc(
-            greenhouse_env=greenhouse_env,
-            test=None,
-            np_random=np.random,
-            prediction_horizon=24,   # 6시간 * 4step/h
-            prediction_model="rk4",
-            constrain_control_rate=True
-        )
+        # 실제 env 없이 MPC 초기화
+        mpc = LearningMpc.__new__(LearningMpc)
+        mpc.nx = len(STATE_KEYS)
+        mpc.nu = len(TOPIC_ACTUATORS)
+        mpc.nd = len(STATE_KEYS)
+        mpc.prediction_horizon = 24
+        mpc.discount_factor = 0.99
+        mpc.constrain_control_rate = True
 
+        # theta 세팅
+        mpc._theta = {}
         for k,v in theta.items():
             mpc.set_value(k,v)
+
         print("[MPC] 초기화 완료")
 
     def step(self, x:list) -> Dict[str,float]:
@@ -120,6 +114,7 @@ class MpcRunner:
             ymin,ymax = Y_BOUNDS[key]
             mpc.set_value(f"y_min_{k}", [[ymin]*len(STATE_KEYS)])
             mpc.set_value(f"y_max_{k}", [[ymax]*len(STATE_KEYS)])
+        # 더미 외란
         mpc.set_value("d", [[0.0]*mpc.prediction_horizon for _ in STATE_KEYS])
         try:
             u = mpc.solve(x)
@@ -167,4 +162,3 @@ def main():
 
 if __name__=="__main__":
     main()
-
