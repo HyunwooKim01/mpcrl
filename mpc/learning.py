@@ -18,8 +18,8 @@ class LearningMpc(Mpc[cs.SX]):
 
     def __init__(
         self,
-        greenhouse_env: LettuceGreenHouse,
-        test: DefaultTest,
+        greenhouse_env: None,
+        test: None,
         np_random: RngType,
         prediction_horizon: int = 6 * 4,
         prediction_model: Literal["euler", "rk4"] = "rk4",
@@ -58,8 +58,13 @@ class LearningMpc(Mpc[cs.SX]):
         nlp = Nlp[cs.SX](debug=False)
         super().__init__(nlp, prediction_horizon=prediction_horizon)
         N = self.prediction_horizon
-        self.discount_factor = test.discount_factor
-
+        ##
+        if test is not None:
+            self.discount_factor = test.discount_factor
+        else:
+            self.discount_factor = 0.99
+        ##
+        
         # create parameters
         # cost parameters
         V0 = self.parameter("V0", (1,))
@@ -165,4 +170,5 @@ class LearningMpc(Mpc[cs.SX]):
     "max_iter": 2000
 },
         }
+
         self.init_solver(opts, solver="ipopt")
