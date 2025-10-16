@@ -16,3 +16,24 @@ Traceback (most recent call last):
     greenhouse_env.nx,
     ^^^^^^^^^^^^^^^^^
 AttributeError: 'NoneType' object has no attribute 'nx'
+
+---
+(.venv311) rasp@raspberrypi:~/hyunwoo/mpcrl/mpc $ python mpc_runner.py 
+/home/rasp/hyunwoo/mpcrl/mpc/mpc_runner.py:145: DeprecationWarning: Callback API version 1 is deprecated, update to latest version
+  client = mqtt.Client(client_id=CLIENT_ID, clean_session=True)
+[MQTT] Connected rc=0
+Traceback (most recent call last):
+  File "/home/rasp/hyunwoo/mpcrl/mpc/mpc_runner.py", line 169, in <module>
+    main()
+  File "/home/rasp/hyunwoo/mpcrl/mpc/mpc_runner.py", line 152, in main
+    runner = MpcRunner()
+             ^^^^^^^^^^^
+  File "/home/rasp/hyunwoo/mpcrl/mpc/mpc_runner.py", line 104, in __init__
+    mpc = LearningMpc(
+          ^^^^^^^^^^^^
+  File "/home/rasp/hyunwoo/mpcrl/mpc/learning.py", line 61, in __init__
+    self.discount_factor = test.discount_factor
+                           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'discount_factor'
+
+
