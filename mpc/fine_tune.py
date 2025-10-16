@@ -2,18 +2,22 @@
 # -*- coding: utf-8 -*-
 
 import json
+import threading
 import paho.mqtt.client as mqtt
-import time
 
 FINE_TUNE_LR = 0.01  # 학습률
 TOPIC_STATE_UPDATE = "farm/greenhouse/mpc/state"
 TOPIC_THETA_UPDATE = "farm/greenhouse/mpc/theta_update"
 CLIENT_ID = "rpi-greenhouse-finetune"
-STATE_KEYS = ["temp","hum","co2","light"]
 
-# theta 초기화
-with open("theta_params.json","r") as f:
-    theta = json.load(f)["params"]
+STATE_KEYS = ["temp","hum","co2","light"]
+theta = {}
+theta_lock = threading.Lock()
+
+def load_theta():
+    global theta
+    with open("theta_params.json","r") as f:
+        theta = json.load(f)["params"]
 
 def on_connect(client, userdata, flags, rc):
     print(f"[FineTune] Connected rc={rc}")
@@ -25,26 +29,25 @@ def on_message(client, userdata, msg):
     try:
         data = json.loads(payload)
         x = [float(data["x"][k]) for k in STATE_KEYS]
-
-        # 간단 PI-style 업데이트 (예시)
-        target = [21,65,650,325]  # 목표값
+        target = [21, 65, 650, 325]  # 예시 목표값
         delta = [(t - xi)*FINE_TUNE_LR for xi,t in zip(x,target)]
 
-        # theta 갱신
-        for i,k in enumerate(theta.keys()):
-            v = theta[k]
-            if isinstance(v,(list,tuple)):
-                theta[k] = [vi+delta[i%len(delta)] for vi in v]
-            else:
-                theta[k] += delta[i%len(delta)]
+        with theta_lock:
+            for i,k in enumerate(theta.keys()):
+                v = theta[k]
+                if isinstance(v,(list,tuple)):
+                    theta[k] = [vi + delta[i%len(delta)] for vi in v]
+                else:
+                    theta[k] += delta[i%len(delta)]
 
-        # 업데이트 퍼블리시
-        client.publish(TOPIC_THETA_UPDATE,json.dumps(theta),qos=1)
-        print(f"[FineTune] x={x} delta={delta}")
+            # 업데이트 퍼블리시
+            client.publish(TOPIC_THETA_UPDATE,json.dumps(theta),qos=1)
+        print(f"[FineTune] x={x} delta={delta} theta updated")
     except Exception as e:
         print(f"[FineTune] parse error: {e}")
 
 def main():
+    load_theta()
     client = mqtt.Client(client_id=CLIENT_ID)
     client.on_connect = on_connect
     client.on_message = on_message
