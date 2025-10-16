@@ -3,13 +3,17 @@
 
 import json
 import paho.mqtt.client as mqtt
+import time
 
 FINE_TUNE_LR = 0.01  # 학습률
 TOPIC_STATE_UPDATE = "farm/greenhouse/mpc/state"
 TOPIC_THETA_UPDATE = "farm/greenhouse/mpc/theta_update"
 CLIENT_ID = "rpi-greenhouse-finetune"
+STATE_KEYS = ["temp","hum","co2","light"]
 
-theta = {}
+# theta 초기화
+with open("theta_params.json","r") as f:
+    theta = json.load(f)["params"]
 
 def on_connect(client, userdata, flags, rc):
     print(f"[FineTune] Connected rc={rc}")
@@ -20,10 +24,12 @@ def on_message(client, userdata, msg):
     payload = msg.payload.decode("utf-8")
     try:
         data = json.loads(payload)
-        x = [float(data["x"][k]) for k in ["temp","hum","co2","light"]]
-        # 간단 Q-learning style update
-        target = [21,65,650,325]  # 예시 목표값
+        x = [float(data["x"][k]) for k in STATE_KEYS]
+
+        # 간단 PI-style 업데이트 (예시)
+        target = [21,65,650,325]  # 목표값
         delta = [(t - xi)*FINE_TUNE_LR for xi,t in zip(x,target)]
+
         # theta 갱신
         for i,k in enumerate(theta.keys()):
             v = theta[k]
@@ -31,6 +37,7 @@ def on_message(client, userdata, msg):
                 theta[k] = [vi+delta[i%len(delta)] for vi in v]
             else:
                 theta[k] += delta[i%len(delta)]
+
         # 업데이트 퍼블리시
         client.publish(TOPIC_THETA_UPDATE,json.dumps(theta),qos=1)
         print(f"[FineTune] x={x} delta={delta}")
