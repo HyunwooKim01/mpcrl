@@ -149,3 +149,17 @@ Traceback (most recent call last):
   File "/home/rasp/hyunwoo/mpcrl/mpc/real_learning.py", line 39, in __init__
     super().__init__(nlp, prediction_horizon=prediction_horizon, nx=nx, nu=nu, nd=nd, ts=ts)
 TypeError: Mpc.__init__() got an unexpected keyword argument 'nx'
+
+---
+(.venv311) rasp@raspberrypi:~/hyunwoo/mpcrl/mpc $ python mpc_runner.py 
+Traceback (most recent call last):
+  File "/home/rasp/hyunwoo/mpcrl/mpc/mpc_runner.py", line 24, in <module>
+    mpc = RealLearningMpc(
+          ^^^^^^^^^^^^^^^^
+  File "/home/rasp/hyunwoo/mpcrl/mpc/real_learning.py", line 46, in __init__
+    u, _ = self.action("u", self.nu, lb=Model.get_u_min().reshape(-1,1),
+                            ^^^^^^^
+  File "/home/rasp/checkjin/.venv311/lib/python3.11/site-packages/csnlp/wrappers/wrapper.py", line 61, in __getattr__
+    return getattr(self.nlp, name)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Nlp' object has no attribute 'nu'. Did you mean: 'ng'?
