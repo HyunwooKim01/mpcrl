@@ -99,3 +99,13 @@ Traceback (most recent call last):
     ^^^^^^^^^^^^^^^^^
 AttributeError: 'NoneType' object has no attribute 'nx'
 
+---
+(.venv311) rasp@raspberrypi:~/hyunwoo/mpcrl/mpc $ python mpc_runner.py
+Traceback (most recent call last):
+  File "/home/rasp/hyunwoo/mpcrl/mpc/mpc_runner.py", line 23, in <module>
+    mpc = LearningMpc(
+          ^^^^^^^^^^^^
+  File "/home/rasp/hyunwoo/mpcrl/mpc/learning.py", line 61, in __init__
+    self.discount_factor = test.discount_factor
+                           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'discount_factor'
