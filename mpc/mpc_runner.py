@@ -21,7 +21,7 @@ CONTROL_PERIOD_SEC = 15  # 제어 주기 15초
 env = RealSensorEnv()
 # MPC: 실제 센서 기반이므로 env dynamics는 필요 없음. state dimension만 참조
 mpc = LearningMpc(
-    greenhouse_env=None,  # 실제 환경에서는 None
+    greenhouse_env=env,  # 실제 환경에서는 None
     test=None,
     np_random=np.random,
     prediction_horizon=6*4,  # 6시간 horizon, 15분 간격이면 24 step
@@ -78,3 +78,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
