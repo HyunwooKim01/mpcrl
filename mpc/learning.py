@@ -12,92 +12,84 @@ from greenhouse.env import LettuceGreenHouse
 from greenhouse.model import Model
 from sims.configs.default import DefaultTest
 
-
 class LearningMpc(Mpc[cs.SX]):
     """Non-linear MPC for greenhouse control."""
 
     def __init__(
         self,
-        greenhouse_env: None,
-        test: None,
-        np_random: RngType,
+        greenhouse_env: None = None,
+        test: None = None,
+        np_random: RngType = None,
         prediction_horizon: int = 6 * 4,
         prediction_model: Literal["euler", "rk4"] = "rk4",
         constrain_control_rate: bool = True,
     ) -> None:
-        """Initialize the learning-based MPC for greenhouse control.
 
-        Parameters
-        ----------
-        greenhouse_env : LettuceGreenHouse
-            The greenhouse environment.
-        test : Test
-            The test configuration. Contains all learning hyper-parameters and MPC parameters.
-        prediction_horizon : int, optional
-            The prediction horizon, by default 6 * 4.
-        prediction_model : Literal["euler", "rk4"], optional
-            The prediction model to use, by default "rk4".
-        constrain_control_rate : bool, optional
-            Whether to constrain the control rate, by default False.
-        np_random : RngType, optional
-            The random number generator, by default None.
-        """
-        nx, nu, nd, ts = (
-            greenhouse_env.nx,
-            greenhouse_env.nu,
-            greenhouse_env.nd,
-            greenhouse_env.ts,
-        )
+        # -------------------------
+        # 1️⃣ greenhouse_env None 처리
+        if greenhouse_env is not None:
+            nx, nu, nd, ts = (
+                greenhouse_env.nx,
+                greenhouse_env.nu,
+                greenhouse_env.nd,
+                greenhouse_env.ts,
+            )
+        else:
+            # 실제 센서 환경에서는 차원만 수동 지정
+            nx = 4  # temp, hum, co2, light
+            nu = 4  # heater, humidifier, co2_valve, led
+            nd = 0
+            ts = 1.0  # 시간 간격 (예시)
+
+        # -------------------------
+        # 2️⃣ test None 처리
+        if test is not None:
+            self.discount_factor = test.discount_factor
+            p_perturb = test.p_perturb
+            learnable_pars_init = test.learnable_pars_init
+            fixed_pars = test.fixed_pars
+            p_learn = test.p_learn
+        else:
+            self.discount_factor = 0.99
+            p_perturb = []
+            learnable_pars_init = {}
+            fixed_pars = {}
+            p_learn = []
+
         u_min, u_max, du_lim, y_range = (
             Model.get_u_min(),
             Model.get_u_max(),
             Model.get_du_lim(),
             Model.get_output_range(),
         )
-        # initialize base mpc
+
+        # -------------------------
+        # 나머지 기존 코드 그대로 진행
         nlp = Nlp[cs.SX](debug=False)
         super().__init__(nlp, prediction_horizon=prediction_horizon)
-        N = self.prediction_horizon
-        ##
-        if test is not None:
-            self.discount_factor = test.discount_factor
-        else:
-            self.discount_factor = 0.99
-        ##
-        
-        # create parameters
-        # cost parameters
-        V0 = self.parameter("V0", (1,))
-        c_u = self.parameter("c_u", (nu,))
-        c_dy = self.parameter("c_dy", (1,))
-        c_y = self.parameter("c_y", (1,))
-        y_fin = self.parameter("y_fin", (1,))
-        # constraint violation parameters
-        w = self.parameter("w", (4,))
-        olb = self.parameter("olb", (4,))
-        oub = self.parameter("oub", (4,))
+        N = prediction_horizon
+
         # dynamics parameters
         p = [self.parameter(f"p_{i}", (1,)) for i in range(Model.n_params)]
+        p_values = Model.get_perturbed_parameters(p_perturb, np_random=np_random)
 
-        p_values = Model.get_perturbed_parameters(test.p_perturb, np_random=np_random)
-
-        # parameters initial values dictionaries
-        learnable_pars_init = test.learnable_pars_init
-        fixed_pars = test.fixed_pars
-        # test.p_perturb contains the indexes of parameters to perturb
-        for i in range(
-            Model.n_params
-        ):  # p_learn contains the indexes of parameters to learn
-            if i in test.p_learn:
+        # parameters 초기값 처리
+        for i in range(Model.n_params):
+            if i in p_learn:
                 learnable_pars_init[f"p_{i}"] = np.asarray(p_values[i])
             else:
                 fixed_pars[f"p_{i}"] = np.asarray(p_values[i])
+
         fixed_pars["d"] = np.zeros((nd, N))
         for k in range(N + 1):
             fixed_pars[f"y_min_{k}"] = np.zeros((nx,))
             fixed_pars[f"y_max_{k}"] = np.zeros((nx,))
+
         self.learnable_pars_init = learnable_pars_init
         self.fixed_pars = fixed_pars
+
+        # 변수, dynamics, objective, solver 설정은 기존 코드 그대로
+        ...
 
         # variables (state, action, dist, slack)
         x, _ = self.state("x", nx, lb=0, ub=1e3)
@@ -172,3 +164,4 @@ class LearningMpc(Mpc[cs.SX]):
         }
 
         self.init_solver(opts, solver="ipopt")
+
