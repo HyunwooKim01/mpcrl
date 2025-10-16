@@ -68,4 +68,21 @@ Traceback (most recent call last):
           ^^^^^^^^^^^^
 TypeError: LearningMpc.__init__() got an unexpected keyword argument 'nd'
 
-
+---
+(.venv311) rasp@raspberrypi:~/hyunwoo/mpcrl/mpc $ python mpc_runner.py 
+/home/rasp/hyunwoo/mpcrl/mpc/mpc_runner.py:136: DeprecationWarning: Callback API version 1 is deprecated, update to latest version
+  client = mqtt.Client(client_id=CLIENT_ID, clean_session=True)
+[MQTT] Connected rc=0
+Traceback (most recent call last):
+  File "/home/rasp/hyunwoo/mpcrl/mpc/mpc_runner.py", line 160, in <module>
+    main()
+  File "/home/rasp/hyunwoo/mpcrl/mpc/mpc_runner.py", line 143, in main
+    runner = MpcRunner()
+             ^^^^^^^^^^^
+  File "/home/rasp/hyunwoo/mpcrl/mpc/mpc_runner.py", line 95, in __init__
+    mpc = LearningMpc(
+          ^^^^^^^^^^^^
+  File "/home/rasp/hyunwoo/mpcrl/mpc/learning.py", line 46, in __init__
+    greenhouse_env.nx,
+    ^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'nx'
