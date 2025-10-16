@@ -109,3 +109,22 @@ Traceback (most recent call last):
     self.discount_factor = test.discount_factor
                            ^^^^^^^^^^^^^^^^^^^^
 AttributeError: 'NoneType' object has no attribute 'discount_factor'
+
+---
+(.venv311) rasp@raspberrypi:~/hyunwoo/mpcrl/mpc $ python mpc_runner.py 
+Traceback (most recent call last):
+  File "/home/rasp/hyunwoo/mpcrl/mpc/mpc_runner.py", line 26, in <module>
+    mpc = LearningMpc(
+          ^^^^^^^^^^^^
+  File "/home/rasp/hyunwoo/mpcrl/mpc/learning.py", line 74, in __init__
+    p_values = Model.get_perturbed_parameters(p_perturb, np_random=np_random)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rasp/hyunwoo/mpcrl/mpc/greenhouse/model.py", line 84, in get_perturbed_parameters
+    np_random = np.random.default_rng(np_random)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "numpy/random/_generator.pyx", line 4957, in numpy.random._generator.default_rng
+  File "_pcg64.pyx", line 123, in numpy.random._pcg64.PCG64.__init__
+  File "bit_generator.pyx", line 535, in numpy.random.bit_generator.BitGenerator.__init__
+  File "bit_generator.pyx", line 307, in numpy.random.bit_generator.SeedSequence.__init__
+TypeError: SeedSequence expects int or sequence of ints for entropy not <module 'numpy.random' from '/home/rasp/checkjin/.venv311/lib/python3.11/site-packages/numpy/random/__init__.py'>
+
