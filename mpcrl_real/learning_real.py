@@ -27,7 +27,7 @@ class LearningMpcReal(Mpc[cs.SX]):
         nd: int = 4,
         # ts: float = 60.0 * 15.0,  # 15분 주기
         ts: float = 5.0,  # 테스트용. 5초 단위 예측
-        test: DefaultTest | None = None,
+        test: DefaultReal | None = None,
         np_random: RngType | None = None,
         # prediction_horizon: int = 6 * 4,  # 6시간 (15분 단위 step)
         prediction_horizon: int = 24,  # 테스트용. 2분 예측 (5초×24)
@@ -35,7 +35,7 @@ class LearningMpcReal(Mpc[cs.SX]):
         constrain_control_rate: bool = True,
     ):
         # ---------- 기본 설정 ----------
-        test = test or DefaultTest()
+        test = test or DefaultReal()
         np_random = np.random.default_rng(np_random)
         N = prediction_horizon
 
