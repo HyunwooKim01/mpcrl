@@ -6,7 +6,7 @@ main_real.py
 """
 
 from learning_real import LearningMpcReal
-from sims.configs.default import DefaultTest
+from sims.configs.default_real import DefaultReal
 from real_env import RealEnvironment
 import numpy as np
 
@@ -18,7 +18,7 @@ if __name__ == "__main__":
     env = RealEnvironment(sample_time=5.0)  # 테스트용. 5초마다 제어 루프 실행
     
     # 2️⃣ MPC 제어기 초기화
-    test = DefaultTest()
+    test = DefaultReal()
     mpc = LearningMpcReal(test=test)
     print("✅ MPC controller initialized.")
 
