@@ -14,7 +14,7 @@ from csnlp import Nlp
 from csnlp.wrappers import Mpc
 from mpcrl.util.seeding import RngType
 from greenhouse.model import Model
-from sims.configs.default import DefaultTest
+from sims.configs.default_real import DefaultReal
 
 
 class LearningMpcReal(Mpc[cs.SX]):
