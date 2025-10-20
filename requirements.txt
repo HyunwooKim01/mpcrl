@@ -1,0 +1,22 @@
+# ==============================================
+# MPCRL GREENHOUSE CONTROL PROJECT REQUIREMENTS
+# ==============================================
+
+# ---------- Core Numerical / Optimization ----------
+numpy>=1.25.0            # 수치 계산 (행렬 연산)
+casadi>=3.6.0            # 비선형 최적화 및 미분 기반 MPC
+csnlp>=0.8.0             # CasADi 기반 NLP solver 래퍼
+scipy>=1.11.0            # 일부 수학 함수 (mpcrl 내부에서 사용됨)
+
+# ---------- Reinforcement Learning Framework ----------
+gymnasium>=0.29.0        # RL 환경 표준 인터페이스
+mpcrl @ git+https://github.com/SamuelMallick/mpcrl.git
+# MPC + RL 통합 학습용 프레임워크 (논문 기반)
+
+# ---------- Visualization ----------
+matplotlib>=3.7.0        # 학습 결과(TD-error, 보상, 상태 등) 시각화
+
+# ---------- Utility / Logging ----------
+tqdm>=4.65.0             # 학습 진행 상태 표시
+pickle-mixin             # 결과 저장용 (Python 3.11 환경 호환성)
+
