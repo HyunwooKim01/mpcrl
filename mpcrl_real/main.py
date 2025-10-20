@@ -14,8 +14,9 @@ if __name__ == "__main__":
     print("🚀 Real-world MPC controller starting...")
 
     # 1️⃣ 실제 환경 객체 초기화
-    env = RealEnvironment(sample_time=60.0 * 15.0)  # 15분 주기
-
+    # env = RealEnvironment(sample_time=60.0 * 15.0)  # 15분 주기
+    env = RealEnvironment(sample_time=5.0)  # 테스트용. 5초마다 제어 루프 실행
+    
     # 2️⃣ MPC 제어기 초기화
     test = DefaultTest()
     mpc = LearningMpcReal(test=test)
