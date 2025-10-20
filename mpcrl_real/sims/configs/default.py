@@ -60,7 +60,7 @@ class DefaultTest:
     skip_first = 0
     update_strategy = UpdateStrategy(1, skip_first=skip_first, hook="on_episode_end")
     learning_rate = 1e-2
-    optimizer = optim.NetwonMethod(
+    optimizer = optim.NewtonMethod(
         learning_rate=ExponentialScheduler(learning_rate, factor=1)
     )
     exploration = EpsilonGreedyExploration(
