@@ -7,7 +7,7 @@
 
 from typing import Any
 import numpy as np
-from greenhouse.model import Model
+from greenhouse.model_real import RealModel
 
 
 class DefaultReal:
