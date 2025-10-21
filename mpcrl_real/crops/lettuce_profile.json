@@ -1,0 +1,17 @@
+{
+  "name": "lettuce",
+  "stage": "growth",
+  "T_ref_day": 23.0,
+  "T_ref_night": 19.0,
+  "RH_ref_day": 70.0,
+  "RH_ref_night": 80.0,
+  "CO2_ref_day": 900,
+  "CO2_ref_night": 450,
+  "T_min": 17.0,
+  "T_max": 26.0,
+  "RH_min": 55.0,
+  "RH_max": 90.0,
+  "CO2_min": 400,
+  "CO2_max": 1200,
+  "weights": { "c_y": 10, "c_dy": 8, "c_u": [1.0, 0.5, 0.5], "w": [1000, 1000, 1000, 1000] }
+}

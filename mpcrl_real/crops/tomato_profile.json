@@ -1,0 +1,17 @@
+{
+  "name": "tomato",
+  "stage": "flowering",
+  "T_ref_day": 26.0,
+  "T_ref_night": 20.0,
+  "RH_ref_day": 65.0,
+  "RH_ref_night": 75.0,
+  "CO2_ref_day": 1000,
+  "CO2_ref_night": 450,
+  "T_min": 18.0,
+  "T_max": 28.0,
+  "RH_min": 50.0,
+  "RH_max": 85.0,
+  "CO2_min": 400,
+  "CO2_max": 1500,
+  "weights": { "c_y": 12, "c_dy": 9, "c_u": [1.2, 0.7, 0.5], "w": [1200, 1200, 1200, 1200] }
+}
