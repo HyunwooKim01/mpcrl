@@ -91,8 +91,10 @@ class LearningMpcReal(Mpc[cs.SX]):
 
         # ---------- 제약조건 ----------
         y = [Model.output(x[:, k], p) for k in range(N + 1)]
-        y_min = Model.get_output_min(np.zeros((nd,)))
-        y_max = Model.get_output_max(np.zeros((nd,)))
+
+        # ✅ 수정된 부분
+        y_min, y_max = Model.get_output_range()
+        y_range = cs.DM(y_max - y_min)
 
         for k in range(N + 1):
             self.constraint(f"y_min_{k}", y[k], ">=", (1 + olb) * y_min - s[:, k])
@@ -111,8 +113,9 @@ class LearningMpcReal(Mpc[cs.SX]):
         for k in range(N + 1):
             obj += (self.discount_factor**k) * cs.dot(w, s[:, k] / y_range)
         for k in range(1, N + 1):
-            obj += -(self.discount_factor**k) * c_dy * (y[k][0] - y[k - 1][0])
-        obj += (self.discount_factor ** (N + 1)) * c_dy * c_y * (y_fin - y[N][0])
+            obj += -(self.discount_factor**k) * c_dy * (y[k][0, 0] - y[k - 1][0, 0])
+        obj += (self.discount_factor ** (N + 1)) * c_dy * c_y * (y_fin - y[N][0, 0])
+
         self.minimize(obj)
 
         # ---------- Solver 설정 ----------

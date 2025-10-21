@@ -10,10 +10,18 @@ import math
 import json
 import paho.mqtt.client as mqtt
 
+print("🚀 MQTT 연결 시도 중...")
+
+try:
+    client = mqtt.Client()
+    client.connect("211.106.231.24", 1883, 60)
+    print("✅ 연결 성공")
+except Exception as e:
+    print("❌ 연결 실패:", e)
 
 class EspSimulatorMQTT:
     def __init__(self,
-                 broker_ip="localhost",
+                 broker_ip="211.106.231.24",
                  farm_id="farmA",
                  esp_id="esp1",
                  speed_factor=60.0):
@@ -83,3 +91,19 @@ class EspSimulatorMQTT:
         except KeyboardInterrupt:
             print("🛑 Simulation stopped.")
             self.client.loop_stop()
+
+if __name__ == "__main__":
+    try:
+        sim = EspSimulatorMQTT(
+            broker_ip="211.106.231.24",  # Windows IP
+            farm_id="farmA",
+            esp_id="esp1",
+            speed_factor=60.0
+        )
+        print("🚀 Simulator initialized. Starting loop...")
+        sim.run()  # 루프 실행
+
+    except Exception as e:
+        import traceback
+        print("❌ 프로그램 중단됨:")
+        traceback.print_exc()

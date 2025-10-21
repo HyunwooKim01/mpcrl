@@ -22,6 +22,8 @@ class Model:
     p = (파라미터 벡터, 여기서는 스케일 1.0으로 두되, 인터페이스만 유지)
     """
 
+    n_params = 4 # 예: 외란 변수 개수 (d[0]=temp, d[1]=hum, d[2]=light, d[3]=CO2 등)
+    
     # ---- 선택적: 논문과 동일한 형태의 p_true/p_scale 틀만 유지 (내부 계산에 직접 사용하진 않음)
     p_scale = np.ones(4, dtype=float)   # 단순화: 필요시 확장 가능
     p_true = np.ones(4, dtype=float)
@@ -122,3 +124,35 @@ class Model:
             k4 = f(xk + dt * k3)
             xk = xk + (dt / 6) * (k1 + 2 * k2 + 2 * k3 + k4)
         return xk
+
+    @staticmethod
+    def get_output_range():
+        """
+        실제 센서 데이터 정규화/비정규화를 위한 출력 범위 정의
+        [최소값, 최대값] 형태로 반환
+        (예시: [온도, 습도, 조도, CO2])
+        """
+        # 실제 센서 범위에 맞게 수정
+        y_min = np.array([18.0, 55.0, 120.0, 400.0])   # 예시값
+        y_max = np.array([26.0, 80.0, 300.0, 1000.0])
+        return y_min, y_max
+
+    @staticmethod
+    def get_true_parameters():
+        # 실제 환경에서는 고정값 또는 센서기반 추정값
+        return np.array([0.0, 0.0, 0.0, 0.0])
+
+    @staticmethod
+    def output(x, p):
+        """실제환경: 센서 출력 = 상태. CasADi 벡터는 그대로 반환."""
+        return x
+
+    @staticmethod
+    def get_output_min(d=None):
+        y_min, _ = Model.get_output_range()
+        return y_min  # (ny,) shape
+
+    @staticmethod
+    def get_output_max(d=None):
+        _, y_max = Model.get_output_range()
+        return y_max  # (ny,) shape
