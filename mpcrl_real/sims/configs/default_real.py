@@ -7,8 +7,6 @@
 
 from typing import Any
 import numpy as np
-from greenhouse.model_real import RealModel
-
 
 class DefaultReal:
     """실제 환경용 MPC 테스트 설정 (no RL, no replay buffer)."""

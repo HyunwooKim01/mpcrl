@@ -13,7 +13,7 @@ import casadi as cs
 from csnlp import Nlp
 from csnlp.wrappers import Mpc
 from mpcrl.util.seeding import RngType
-from greenhouse.model import Model
+from greenhouse.model_real import Model
 from sims.configs.default_real import DefaultReal
 
 
