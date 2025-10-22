@@ -105,16 +105,32 @@ class LearningMpcReal(Mpc[cs.SX]):
                 self.constraint(f"du_min_{k}", u[:, k] - u[:, k - 1], "<=", du_lim)
                 self.constraint(f"du_max_{k}", u[:, k] - u[:, k - 1], ">=", -du_lim)
 
-        # ---------- 목적함수 ----------
+        # ---------- 목적함수 (논문식 제곱 오차 기반) ----------
         obj = V0
-        for k in range(N):
-            for j in range(nu):
-                obj += (self.discount_factor**k) * c_u[j] * u[j, k]
+
+        # 상태 추종 목표 (y_ref)
+        y_ref = y_fin  # (shape: (1,)) — 온도 기반 목표
+        y_min, y_max = Model.get_output_range()
+        y_range = cs.DM(y_max - y_min)
+
+        # 제어 변화율 penalty 계수 (논문식 S)
+        c_du = 0.1 * cs.DM.ones(nu)
+
         for k in range(N + 1):
+            # (1) 상태 오차 비용: (y - y_ref)^2 * Q
+            err_y = y[k][0, 0] - y_ref[0]
+            obj += (self.discount_factor**k) * c_y[0] * cs.sumsqr(err_y)
+
+            # (2) 슬랙 변수 비용 (제약 완화 penalty)
             obj += (self.discount_factor**k) * cs.dot(w, s[:, k] / y_range)
-        for k in range(1, N + 1):
-            obj += -(self.discount_factor**k) * c_dy * (y[k][0, 0] - y[k - 1][0, 0])
-        obj += (self.discount_factor ** (N + 1)) * c_dy * c_y * (y_fin - y[N][0, 0])
+
+        for k in range(N):
+            # (3) 제어 입력 크기 비용: u^2 * R
+            obj += (self.discount_factor**k) * cs.dot(c_u, cs.sumsqr(u[:, k]))
+
+            # (4) 제어 변화율 비용: (Δu)^2 * S
+            if k > 0:
+                obj += (self.discount_factor**k) * cs.dot(c_du, cs.sumsqr(u[:, k] - u[:, k-1]))
 
         self.minimize(obj)
 
