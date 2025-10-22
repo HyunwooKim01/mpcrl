@@ -1,17 +1,24 @@
 {
-  "name": "tomato",
-  "stage": "flowering",
-  "T_ref_day": 26.0,
-  "T_ref_night": 20.0,
-  "RH_ref_day": 65.0,
-  "RH_ref_night": 75.0,
-  "CO2_ref_day": 1000,
-  "CO2_ref_night": 450,
-  "T_min": 18.0,
-  "T_max": 28.0,
-  "RH_min": 50.0,
-  "RH_max": 85.0,
-  "CO2_min": 400,
-  "CO2_max": 1500,
-  "weights": { "c_y": 12, "c_dy": 9, "c_u": [1.2, 0.7, 0.5], "w": [1200, 1200, 1200, 1200] }
+  "crop_name": "tomato",
+  "description": "토마토 생육 최적 환경 설정",
+  "targets": {
+    "temperature": 26.0,
+    "humidity": 0.60,
+    "biomass": 0.004,
+    "leaf_water": 0.0080
+  },
+  "priority": {
+    "temperature": 1.0,
+    "humidity": 0.8,
+    "biomass": 0.6,
+    "leaf_water": 0.5
+  },
+  "control_weights": {
+    "fan": 0.06,
+    "heater": 0.03,
+    "led": 0.008,
+    "delta": 0.015
+  }
 }
+
+

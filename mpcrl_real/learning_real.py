@@ -25,12 +25,10 @@ class LearningMpcReal(Mpc[cs.SX]):
         nx: int = 4,
         nu: int = 3,
         nd: int = 4,
-        # ts: float = 60.0 * 15.0,  # 15분 주기
-        ts: float = 5.0,  # 테스트용. 5초 단위 예측
+        ts: float = 60.0 * 15.0,  # 15분 주기
         test: DefaultReal | None = None,
         np_random: RngType | None = None,
-        # prediction_horizon: int = 6 * 4,  # 6시간 (15분 단위 step)
-        prediction_horizon: int = 24,  # 테스트용. 2분 예측 (5초×24)
+        prediction_horizon: int = 6 * 4,  # 6시간 (15분 단위 step)
         prediction_model: Literal["euler", "rk4"] = "rk4",
         constrain_control_rate: bool = True,
     ):
@@ -91,6 +89,8 @@ class LearningMpcReal(Mpc[cs.SX]):
 
         # ---------- 제약조건 ----------
         y = [Model.output(x[:, k], p) for k in range(N + 1)]
+        # ---------- 초기 상태 제약 ----------
+        self.constraint("x_init", x[:, 0], "==", self.parameters["x_0"])
 
         # ✅ 수정된 부분
         y_min, y_max = Model.get_output_range()
@@ -129,6 +129,7 @@ class LearningMpcReal(Mpc[cs.SX]):
                 "max_iter": 500,           # ✅ 2000 → 500 으로 줄이기 (속도 ↑)
                 "tol": 1e-4,               # ✅ 허용 오차 완화 (속도 ↑)
                 "linear_solver": "mumps",
+                "acceptable_tol": 1e-3,
             },
         }
         self.init_solver(opts, solver="ipopt")

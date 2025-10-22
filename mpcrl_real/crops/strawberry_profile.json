@@ -1,0 +1,24 @@
+{
+  "crop_name": "strawberry",
+  "description": "딸기 생육 최적 환경 설정",
+  "targets": {
+    "temperature": 22.0,
+    "humidity": 0.75,
+    "biomass": 0.0025,
+    "leaf_water": 0.0085
+  },
+  "priority": {
+    "temperature": 0.9,
+    "humidity": 1.0,
+    "biomass": 0.6,
+    "leaf_water": 0.8
+  },
+  "control_weights": {
+    "fan": 0.04,
+    "heater": 0.02,
+    "led": 0.015,
+    "delta": 0.02
+  }
+}
+
+

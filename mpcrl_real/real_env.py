@@ -15,7 +15,7 @@ import paho.mqtt.client as mqtt
 
 class RealEnvironment:
     def __init__(self,
-                 broker_ip: str = "localhost",
+                 broker_ip: str = "211.106.231.24",
                  farm_id: str = "farmA",
                  esp_id: str = "esp1",
                  sample_time: float = 5.0):
