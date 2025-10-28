@@ -22,25 +22,6 @@ mpcrl_real/
 └── README.md
 ```
 
-mpcrl_project/
-│
-├── main.py            
-├── learning_real.py
-├── real_env.py
-└── crops/
-    └── lettuce_profile.json
-    └── tomato_profile.json
-└── greenhouse/
-    └── model_real.py
-└── sims/
-    └── configs/
-        └── default_real.py
-└── test/
-    └── esp_simulator_mqtt.py
-    └── visualize_day_test.py
-
----
-
 ## ⚙️ 주요 구성 요소
 
 ### 1️⃣ `main.py` – 메인 루프
