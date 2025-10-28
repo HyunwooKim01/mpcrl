@@ -1,95 +1,86 @@
-import os
-import json, time
-import numpy as np
-from real_env import RealEnvironment
+# main_real_mpc.py
+"""
+실제 환경용 RL-MPC 제어 메인 루프 (real_env.py 사용하지 않음)
+- MQTT로 센서 수신
+- MPC로 최적 제어 입력 계산
+- MQTT로 제어 명령 송신
+"""
+
+import time, json, os, numpy as np
 from sims.configs.default_real import DefaultReal
-from learning_real import LearningMpcReal
+from learning_real_rl import LearningMpcReal       # RL 통합형 MPC
 from greenhouse.model_real import Model
+from mqtt_handler import get_latest_sensor, publish_actuator
 
 
 # ────────────────────────────────────────────────
-# 🥬 1️⃣ 작물 프로필 로드 (안전/견고 버전)
+# 🥬 작물 프로필 로드 (선택)
 # ────────────────────────────────────────────────
-def load_crop_profile(crop_name: str = "lettuce"):
-    """JSON에서 작물 프로필 로드 (BOM/경로/키 불일치 방어)"""
+def load_crop_profile(crop_name="lettuce"):
     base_dir = os.path.dirname(os.path.abspath(__file__))
     path = os.path.join(base_dir, "crops", f"{crop_name.lower()}_profile.json")
-    try:
+    if os.path.exists(path):
         with open(path, "r", encoding="utf-8-sig") as f:
-            raw = f.read()
-        text = raw.strip()
-        profile = json.loads(text)  # 앞뒤 공백 제거 후 파싱
-
-        # 키 이름 호환: crop / crop_name
-        crop_label = profile.get("crop") or profile.get("crop_name") or crop_name
-        desc = profile.get("description", "-")
-        print(f"🌿 Loaded crop profile: {crop_label} ({desc}) @ {path}")
+            profile = json.load(f)
+        print(f"🌿 Loaded crop profile: {profile.get('crop','unknown')} @ {path}")
         return profile
-    except FileNotFoundError:
-        print(f"⚠️ {path} 파일 없음 → DefaultReal 기본값 사용")
-        return None
-    except json.JSONDecodeError as e:
-        # 디버깅 힌트 제공
-        snippet_head = text[:200].replace("\n", "\\n")
-        snippet_tail = text[-200:].replace("\n", "\\n")
-        print("❌ JSON 파싱 오류:", e)
-        print(f"   ▸ 파일 경로: {path}")
-        print(f"   ▸ 앞쪽 스니펫: {snippet_head}")
-        print(f"   ▸ 뒤쪽 스니펫: {snippet_tail}")
-        print("   ▸ 점검: 마지막 항목 뒤 쉼표 제거, 주석(//, /* */) 제거, JSON 객체 1개만 존재하는지 확인")
+    else:
+        print(f"⚠️ {path} not found → DefaultReal 사용")
         return None
 
 
 # ────────────────────────────────────────────────
-# 🚀 2️⃣ 메인 루프
+# 🚀 메인 제어 루프
 # ────────────────────────────────────────────────
-if __name__ == "__main__":
-    print("🚀 Real-world MPC controller starting...")
+def main():
+    print("🚀 RL-MPC Real Control Loop Starting...")
 
-    # (1) 환경 초기화
-    env = RealEnvironment(sample_time=5.0)
-    crop_name = "lettuce"   # 🍅 tomato / 🥒 cucumber / 🍓 strawberry
-
-    # (2) 작물 프로필 로드 + MPC 파라미터 자동 세팅
+    crop_name = "lettuce"
     crop_profile = load_crop_profile(crop_name)
-    crop_config = DefaultReal(crop_name)   # 내부에서 learnable_pars_init 자동 생성
-
-    # (3) MPC 컨트롤러 초기화
+    crop_config = DefaultReal(crop_name)
     mpc = LearningMpcReal(test=crop_config)
-    print("✅ MPC controller initialized.")
+    print("✅ MPC initialized.\n")
 
-    # (4) 제어 루프
+    CONTROL_PERIOD = 15 * 60   # 15분 주기 (센서 주기 맞춤)
+
     while True:
         try:
-            # 내부/외부 환경 읽기
-            x_current = env.read_sensors()
-            d_current = env.read_disturbance()
+            # 1️⃣ MQTT에서 최신 센서데이터 수신
+            sensor_data = get_latest_sensor()
+            if not sensor_data:
+                print("⏳ 대기중: 센서데이터 수신 안됨 (MQTT)")
+                time.sleep(5)
+                continue
 
-            # 출력 시 프로필 유무 안전 처리
-            crop_label = (crop_profile or {}).get("crop") \
-                         or (crop_profile or {}).get("crop_name") \
-                         or crop_name
+            # 2️⃣ 센서데이터 파싱
+            temp = float(sensor_data.get("temp", 0))
+            hum = float(sensor_data.get("hum", 0))
+            co2 = float(sensor_data.get("co2", 0))
+            light = float(sensor_data.get("light", 0))
 
-            # 상태 출력
-            print("\n📡 [INPUT SUMMARY]")
-            print(f"  내부환경 x : {x_current.round(3)}")
-            print(f"  외부환경 d : {d_current.round(3)}")
-            print(f"  작물정보   : {crop_label}")
-            print("------------------------------------------------------------")
+            # 상태(x), 외란(d) 구성
+            x_current = np.array([0.0, co2, temp, hum])   # 내부상태
+            d_current = np.array([light, co2, temp, hum]) # 외란
 
-            # MPC 계산
+            print(f"\n📡 [Sensor] Temp={temp:.1f}°C  Hum={hum:.1f}%  CO₂={co2:.0f}ppm  Light={light:.0f}lx")
+
+            # 3️⃣ MPC 계산
             u_opt, status = mpc.compute_control(x_current, d_current)
             print(f"[MPC] status={status}, u_opt={u_opt.round(3)}")
 
-            # 제어값 MQTT 전송
-            env.apply_control(u_opt)
+            # 4️⃣ MQTT로 제어값 송신
+            publish_actuator(u_opt)
 
-            # 루프 주기 대기
-            env.wait_next_cycle()
+            # 5️⃣ 주기 대기
+            time.sleep(CONTROL_PERIOD)
 
         except KeyboardInterrupt:
-            print("🛑 MPC control loop stopped by user.")
+            print("\n🛑 제어 루프 중단 (사용자)")
             break
         except Exception as e:
             print(f"❌ Error: {e}")
-            time.sleep(3)
+            time.sleep(5)
+
+
+if __name__ == "__main__":
+    main()
