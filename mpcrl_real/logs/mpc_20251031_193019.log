@@ -1,0 +1,1530 @@
+📝 Logging to logs/mpc_20251031_193019.log
+🚀 Real-world MPC (CasADi) starting...
+✅ MQTT connected → 172.27.148.207:1883
+🟢 MQTT connected successfully, subscribed to {'sensor': 'farmA/esp1/sensor', 'disturbance': 'farmA/esp1/disturbance', 'actuator_control': 'farmA/esp1/actuator/control'}
+📡 Subscribed topics: {'sensor': 'farmA/esp1/sensor', 'disturbance': 'farmA/esp1/disturbance', 'actuator_control': 'farmA/esp1/actuator/control'}
+-------------------------------------------
+This is casadi::QRQP
+Number of variables:                             244
+Number of constraints:                           172
+Number of nonzeros in H:                         832
+Number of nonzeros in A:                         529
+Number of nonzeros in KKT:                      2062
+Number of nonzeros in QR(V):                    3055
+Number of nonzeros in QR(R):                    5799
+🎯 Target → T_ref=20.0°C, H_ref=60.0%
+✅ MPC loop running...
+
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0       4.2   250   3.6e+02     1     0.047   257         0  
+    1     0  -1.5e+06   1.1e-09   300   1.5e-09   123     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   1.1e-09   300        37    93     0.047   257         0  
+    1     0  -4.3e+03   4.4e-12   286   9.9e-12   147     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   4.3e-12   286      0.79     9     0.047   257         0  
+    1     0    -0.031   1.5e-13   258   2.9e-13     2     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   1.7e-13   258     3e-06     8     0.047   257         0  
+    1     0  -2.2e-12     9e-15   345   2.9e-13     2     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 4 iterations
+⚙️ u=[0.    0.    0.167]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.16666661802950258, 'timestamp': 1761906620.7138078}
+
+────────────────────────────────────────────
+⏱ [STEP 001] t=1761906620.68 (Δt=5.0s)
+🌡 Temp=0.0°C  💧Hum=0.0%  ☁️CO₂=0ppm  💡Light=0.0lx
+🌞 Rad=0W/m²  🌬OutT=15.0°C  💧OutH=50%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.17
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 16.1, 'hum_in': 78.0, 'co2_in': 441.0, 'light_in': 14.4, 'timestamp': 1761906628.4265647}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 18, 'co2_out': 421, 'temp_out': 14.1, 'hum_out': 83, 'timestamp': 1761906628.4265506}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   4.4e+02   246   3.6e+02     1     0.047   257         0  
+    1     0    -7e+05   1.8e-10   356   1.3e-10   168     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   1.8e-10   356   2.3e+02     1     0.047   257         0  
+    1     0  -8.7e+02   7.8e-12   258   2.4e-11   102     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   7.8e-12   258    0.0019     8     0.047   257         0  
+    1     0  -5.9e-07   1.4e-11   377   1.3e-14    14     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 3 iterations
+⚙️ u=[1.    1.    0.153]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 1.0, 'led': 0.15316663276800135, 'timestamp': 1761906625.7354226}
+
+────────────────────────────────────────────
+⏱ [STEP 002] t=1761906625.72 (Δt=5.0s)
+🌡 Temp=16.1°C  💧Hum=78.0%  ☁️CO₂=441ppm  💡Light=14.4lx
+🌞 Rad=18W/m²  🌬OutT=14.1°C  💧OutH=83%
+⚙️ u_opt → FAN=1.00 | HEATER=1.00 | LED=0.15
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 15.9, 'hum_in': 79.0, 'co2_in': 442.0, 'light_in': 12.8, 'timestamp': 1761906633.432181}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 16, 'co2_out': 422, 'temp_out': 13.9, 'hum_out': 84, 'timestamp': 1761906633.4321659}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0       1.6   247   2.9e+02     3     0.047   257         0  
+    1     0     8e+02   6.7e-11   258   8.8e-11   105     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   6.7e-11   258   3.3e-05     4     0.047   257         0  
+    1     0  -2.5e-10   5.7e-16   299   1.9e-14    18     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 2 iterations
+⚙️ u=[1.    1.    0.155]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 1.0, 'led': 0.15466663121692772, 'timestamp': 1761906630.751518}
+
+────────────────────────────────────────────
+⏱ [STEP 003] t=1761906630.74 (Δt=5.0s)
+🌡 Temp=15.9°C  💧Hum=79.0%  ☁️CO₂=442ppm  💡Light=12.8lx
+🌞 Rad=16W/m²  🌬OutT=13.9°C  💧OutH=84%
+⚙️ u_opt → FAN=1.00 | HEATER=1.00 | LED=0.15
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 15.8, 'hum_in': 79.0, 'co2_in': 443.0, 'light_in': 12.0, 'timestamp': 1761906638.4518075}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 15, 'co2_out': 423, 'temp_out': 13.8, 'hum_out': 84, 'timestamp': 1761906638.451791}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0         1   246   2.9e+02     3     0.047   257         0  
+    1     0   4.4e+02   9.3e-11   258   2.7e-11   129     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+⚙️ u=[1.    1.    0.155]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 1.0, 'led': 0.1554166311075506, 'timestamp': 1761906635.7624948}
+
+────────────────────────────────────────────
+⏱ [STEP 004] t=1761906635.75 (Δt=5.0s)
+🌡 Temp=15.8°C  💧Hum=79.0%  ☁️CO₂=443ppm  💡Light=12.0lx
+🌞 Rad=15W/m²  🌬OutT=13.8°C  💧OutH=84%
+⚙️ u_opt → FAN=1.00 | HEATER=1.00 | LED=0.16
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 15.7, 'hum_in': 80.0, 'co2_in': 444.0, 'light_in': 12.0, 'timestamp': 1761906643.4751365}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 15, 'co2_out': 424, 'temp_out': 13.7, 'hum_out': 85, 'timestamp': 1761906643.4751215}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0         1   245   2.9e+02     3     0.047   257         0  
+    1     0   3.7e+02   6.6e-11   286   1.4e-10   102     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   6.6e-11   286   3.5e-05    12     0.047   257         0  
+    1     0  -2.7e-10   4.9e-15   412   2.2e-14    10     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 2 iterations
+⚙️ u=[1.    1.    0.155]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 1.0, 'led': 0.15541663085944923, 'timestamp': 1761906640.7940598}
+
+────────────────────────────────────────────
+⏱ [STEP 005] t=1761906640.76 (Δt=5.0s)
+🌡 Temp=15.7°C  💧Hum=80.0%  ☁️CO₂=444ppm  💡Light=12.0lx
+🌞 Rad=15W/m²  🌬OutT=13.7°C  💧OutH=85%
+⚙️ u_opt → FAN=1.00 | HEATER=1.00 | LED=0.16
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 15.6, 'hum_in': 80.0, 'co2_in': 444.0, 'light_in': 12.0, 'timestamp': 1761906648.4811172}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 15, 'co2_out': 424, 'temp_out': 13.6, 'hum_out': 85, 'timestamp': 1761906648.481104}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0       0.1   244   2.9e+02     3     0.047   257         0  
+    1     0       9.5     4e-11   300   8.7e-11   102     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+⚙️ u=[1.    1.    0.155]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 1.0, 'led': 0.15541663082975016, 'timestamp': 1761906645.8067887}
+
+────────────────────────────────────────────
+⏱ [STEP 006] t=1761906645.80 (Δt=5.0s)
+🌡 Temp=15.6°C  💧Hum=80.0%  ☁️CO₂=444ppm  💡Light=12.0lx
+🌞 Rad=15W/m²  🌬OutT=13.6°C  💧OutH=85%
+⚙️ u_opt → FAN=1.00 | HEATER=1.00 | LED=0.16
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 15.5, 'hum_in': 81.0, 'co2_in': 445.0, 'light_in': 11.200000000000001, 'timestamp': 1761906653.4871387}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 14, 'co2_out': 425, 'temp_out': 13.5, 'hum_out': 86, 'timestamp': 1761906653.4871237}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0         1   245   2.9e+02     3     0.047   257         0  
+    1     0   6.2e+02   1.4e-10   258   6.7e-11   129     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   1.4e-10   258       4.5     1     0.047   257         0  
+    1     0  -2.3e-10     8e-14   251   3.9e-13   105     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 2 iterations
+⚙️ u=[1.    1.    0.156]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 1.0, 'led': 0.15616663043750809, 'timestamp': 1761906650.8224788}
+
+────────────────────────────────────────────
+⏱ [STEP 007] t=1761906650.81 (Δt=5.0s)
+🌡 Temp=15.5°C  💧Hum=81.0%  ☁️CO₂=445ppm  💡Light=11.2lx
+🌞 Rad=14W/m²  🌬OutT=13.5°C  💧OutH=86%
+⚙️ u_opt → FAN=1.00 | HEATER=1.00 | LED=0.16
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 15.5, 'hum_in': 81.0, 'co2_in': 446.0, 'light_in': 11.200000000000001, 'timestamp': 1761906658.5143383}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 14, 'co2_out': 426, 'temp_out': 13.5, 'hum_out': 86, 'timestamp': 1761906658.5143247}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0         1   246   2.9e+02     3     0.047   257         0  
+    1     0   2.3e+02   4.5e-11   286   9.2e-11   105     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+⚙️ u=[1.    1.    0.156]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 1.0, 'led': 0.15616663048379947, 'timestamp': 1761906655.8468482}
+
+────────────────────────────────────────────
+⏱ [STEP 008] t=1761906655.82 (Δt=5.0s)
+🌡 Temp=15.5°C  💧Hum=81.0%  ☁️CO₂=446ppm  💡Light=11.2lx
+🌞 Rad=14W/m²  🌬OutT=13.5°C  💧OutH=86%
+⚙️ u_opt → FAN=1.00 | HEATER=1.00 | LED=0.16
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 15.4, 'hum_in': 81.0, 'co2_in': 446.0, 'light_in': 11.200000000000001, 'timestamp': 1761906663.52011}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 14, 'co2_out': 426, 'temp_out': 13.4, 'hum_out': 86, 'timestamp': 1761906663.5200944}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0       0.1   244   2.9e+02     3     0.047   257         0  
+    1     0        10   7.4e-11   258   1.3e-10   102     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+⚙️ u=[1.    1.    0.156]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 1.0, 'led': 0.15616663046121276, 'timestamp': 1761906660.8605123}
+
+────────────────────────────────────────────
+⏱ [STEP 009] t=1761906660.85 (Δt=5.0s)
+🌡 Temp=15.4°C  💧Hum=81.0%  ☁️CO₂=446ppm  💡Light=11.2lx
+🌞 Rad=14W/m²  🌬OutT=13.4°C  💧OutH=86%
+⚙️ u_opt → FAN=1.00 | HEATER=1.00 | LED=0.16
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 15.4, 'hum_in': 82.0, 'co2_in': 447.0, 'light_in': 10.4, 'timestamp': 1761906668.5259576}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 13, 'co2_out': 427, 'temp_out': 13.4, 'hum_out': 87, 'timestamp': 1761906668.5258737}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0         1   245   2.9e+02     3     0.047   257         0  
+    1     0   6.5e+02   3.1e-11   272   5.4e-11   120     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   3.1e-11   272   3.1e-05    12     0.047   257         0  
+    1     0  -1.9e-10   6.1e-15   412   1.8e-14    34     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 2 iterations
+⚙️ u=[1.    1.    0.157]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 1.0, 'led': 0.15691663013914178, 'timestamp': 1761906665.876982}
+
+────────────────────────────────────────────
+⏱ [STEP 010] t=1761906665.86 (Δt=5.0s)
+🌡 Temp=15.4°C  💧Hum=82.0%  ☁️CO₂=447ppm  💡Light=10.4lx
+🌞 Rad=13W/m²  🌬OutT=13.4°C  💧OutH=87%
+⚙️ u_opt → FAN=1.00 | HEATER=1.00 | LED=0.16
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 15.3, 'hum_in': 82.0, 'co2_in': 447.0, 'light_in': 10.4, 'timestamp': 1761906673.5324478}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 13, 'co2_out': 427, 'temp_out': 13.3, 'hum_out': 87, 'timestamp': 1761906673.532434}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0       0.1   244   2.9e+02     3     0.047   257         0  
+    1     0        10   1.1e-10   258   8.2e-11   117     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+⚙️ u=[1.    1.    0.157]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 1.0, 'led': 0.15691663016796228, 'timestamp': 1761906670.900572}
+
+────────────────────────────────────────────
+⏱ [STEP 011] t=1761906670.88 (Δt=5.0s)
+🌡 Temp=15.3°C  💧Hum=82.0%  ☁️CO₂=447ppm  💡Light=10.4lx
+🌞 Rad=13W/m²  🌬OutT=13.3°C  💧OutH=87%
+⚙️ u_opt → FAN=1.00 | HEATER=1.00 | LED=0.16
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 15.3, 'hum_in': 82.0, 'co2_in': 448.0, 'light_in': 9.600000000000001, 'timestamp': 1761906678.538094}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 12, 'co2_out': 428, 'temp_out': 13.3, 'hum_out': 87, 'timestamp': 1761906678.538081}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0         1   246   2.9e+02     3     0.047   257         0  
+    1     0   4.8e+02   5.3e-11   258   1.3e-10   117     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+⚙️ u=[1.    1.    0.158]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 1.0, 'led': 0.15766663000487072, 'timestamp': 1761906675.9140983}
+
+────────────────────────────────────────────
+⏱ [STEP 012] t=1761906675.90 (Δt=5.0s)
+🌡 Temp=15.3°C  💧Hum=82.0%  ☁️CO₂=448ppm  💡Light=9.6lx
+🌞 Rad=12W/m²  🌬OutT=13.3°C  💧OutH=87%
+⚙️ u_opt → FAN=1.00 | HEATER=1.00 | LED=0.16
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 15.2, 'hum_in': 83.0, 'co2_in': 448.0, 'light_in': 9.600000000000001, 'timestamp': 1761906683.5441098}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 12, 'co2_out': 428, 'temp_out': 13.2, 'hum_out': 88, 'timestamp': 1761906683.544097}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0         1   245   2.9e+02     3     0.047   257         0  
+    1     0     2e+02   5.8e-11   258   1.7e-10   102     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   5.8e-11   258   3.3e-05    12     0.047   257         0  
+    1     0  -2.3e-10   1.1e-15   285   2.8e-14    18     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 2 iterations
+⚙️ u=[1.    1.    0.158]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 1.0, 'led': 0.15766662991323863, 'timestamp': 1761906680.9298203}
+
+────────────────────────────────────────────
+⏱ [STEP 013] t=1761906680.92 (Δt=5.0s)
+🌡 Temp=15.2°C  💧Hum=83.0%  ☁️CO₂=448ppm  💡Light=9.6lx
+🌞 Rad=12W/m²  🌬OutT=13.2°C  💧OutH=88%
+⚙️ u_opt → FAN=1.00 | HEATER=1.00 | LED=0.16
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 15.2, 'hum_in': 83.0, 'co2_in': 449.0, 'light_in': 9.600000000000001, 'timestamp': 1761906688.5503373}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 12, 'co2_out': 429, 'temp_out': 13.2, 'hum_out': 88, 'timestamp': 1761906688.550323}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0         1   246   2.9e+02     3     0.047   257         0  
+    1     0   2.6e+02   8.4e-11   258   8.4e-11   108     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+⚙️ u=[1.    1.    0.158]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 1.0, 'led': 0.15766662991323863, 'timestamp': 1761906685.9412434}
+
+────────────────────────────────────────────
+⏱ [STEP 014] t=1761906685.93 (Δt=5.0s)
+🌡 Temp=15.2°C  💧Hum=83.0%  ☁️CO₂=449ppm  💡Light=9.6lx
+🌞 Rad=12W/m²  🌬OutT=13.2°C  💧OutH=88%
+⚙️ u_opt → FAN=1.00 | HEATER=1.00 | LED=0.16
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 15.1, 'hum_in': 84.0, 'co2_in': 450.0, 'light_in': 9.600000000000001, 'timestamp': 1761906693.5561557}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 12, 'co2_out': 430, 'temp_out': 13.1, 'hum_out': 89, 'timestamp': 1761906693.5561407}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0         1   245   2.9e+02     3     0.047   257         0  
+    1     0   4.8e+02   7.1e-11   286   7.9e-11   105     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0     7e-11   286   3.2e-05    12     0.047   257         0  
+    1     0  -1.6e-10   2.8e-18   251     4e-14    34     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 2 iterations
+⚙️ u=[1.    1.    0.158]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 1.0, 'led': 0.15766662980639312, 'timestamp': 1761906690.9698422}
+
+────────────────────────────────────────────
+⏱ [STEP 015] t=1761906690.94 (Δt=5.0s)
+🌡 Temp=15.1°C  💧Hum=84.0%  ☁️CO₂=450ppm  💡Light=9.6lx
+🌞 Rad=12W/m²  🌬OutT=13.1°C  💧OutH=89%
+⚙️ u_opt → FAN=1.00 | HEATER=1.00 | LED=0.16
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 15.1, 'hum_in': 84.0, 'co2_in': 450.0, 'light_in': 8.8, 'timestamp': 1761906698.5613635}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 11, 'co2_out': 430, 'temp_out': 13.1, 'hum_out': 89, 'timestamp': 1761906698.5613492}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0       0.8   247   2.9e+02     3     0.047   257         0  
+    1     0   2.3e+02   8.5e-11   300   1.4e-10   102     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+⚙️ u=[1.    1.    0.158]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 1.0, 'led': 0.15841662964306966, 'timestamp': 1761906695.9825282}
+
+────────────────────────────────────────────
+⏱ [STEP 016] t=1761906695.97 (Δt=5.0s)
+🌡 Temp=15.1°C  💧Hum=84.0%  ☁️CO₂=450ppm  💡Light=8.8lx
+🌞 Rad=11W/m²  🌬OutT=13.1°C  💧OutH=89%
+⚙️ u_opt → FAN=1.00 | HEATER=1.00 | LED=0.16
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 15.0, 'hum_in': 84.0, 'co2_in': 451.0, 'light_in': 8.8, 'timestamp': 1761906703.5896053}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 11, 'co2_out': 431, 'temp_out': 13.0, 'hum_out': 89, 'timestamp': 1761906703.5895934}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0         1   246   2.9e+02     3     0.047   257         0  
+    1     0   2.9e+02   1.1e-10   258   8.6e-11   135     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+⚙️ u=[1.    1.    0.158]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 1.0, 'led': 0.15841662967948333, 'timestamp': 1761906700.9936697}
+
+────────────────────────────────────────────
+⏱ [STEP 017] t=1761906700.98 (Δt=5.0s)
+🌡 Temp=15.0°C  💧Hum=84.0%  ☁️CO₂=451ppm  💡Light=8.8lx
+🌞 Rad=11W/m²  🌬OutT=13.0°C  💧OutH=89%
+⚙️ u_opt → FAN=1.00 | HEATER=1.00 | LED=0.16
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 15.0, 'hum_in': 85.0, 'co2_in': 452.0, 'light_in': 8.8, 'timestamp': 1761906708.5953314}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 11, 'co2_out': 432, 'temp_out': 13.0, 'hum_out': 90, 'timestamp': 1761906708.5953178}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0         1   245   2.9e+02     3     0.047   257         0  
+    1     0     5e+02   9.8e-11   258   8.8e-11   114     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   9.8e-11   258   2.8e-05    12     0.047   257         0  
+    1     0  -1.7e-10     6e-15   334   4.1e-14     2     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 2 iterations
+⚙️ u=[1.    1.    0.158]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 1.0, 'led': 0.15841662960742536, 'timestamp': 1761906706.0114183}
+
+────────────────────────────────────────────
+⏱ [STEP 018] t=1761906705.99 (Δt=5.0s)
+🌡 Temp=15.0°C  💧Hum=85.0%  ☁️CO₂=452ppm  💡Light=8.8lx
+🌞 Rad=11W/m²  🌬OutT=13.0°C  💧OutH=90%
+⚙️ u_opt → FAN=1.00 | HEATER=1.00 | LED=0.16
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 15.0, 'hum_in': 85.0, 'co2_in': 452.0, 'light_in': 8.0, 'timestamp': 1761906713.6159153}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 10, 'co2_out': 432, 'temp_out': 13.0, 'hum_out': 90, 'timestamp': 1761906713.6159031}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0       0.8   247   2.9e+02     3     0.047   257         0  
+    1     0   2.3e+02   1.1e-10   286   1.1e-10   102     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+⚙️ u=[1.    1.    0.159]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 1.0, 'led': 0.15916662944411228, 'timestamp': 1761906711.031353}
+
+────────────────────────────────────────────
+⏱ [STEP 019] t=1761906711.01 (Δt=5.0s)
+🌡 Temp=15.0°C  💧Hum=85.0%  ☁️CO₂=452ppm  💡Light=8.0lx
+🌞 Rad=10W/m²  🌬OutT=13.0°C  💧OutH=90%
+⚙️ u_opt → FAN=1.00 | HEATER=1.00 | LED=0.16
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 15.1, 'hum_in': 84.0, 'co2_in': 452.0, 'light_in': 8.0, 'timestamp': 1761906718.621976}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 10, 'co2_out': 432, 'temp_out': 13.1, 'hum_out': 89, 'timestamp': 1761906718.6219633}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0         1   245   2.9e+02     3     0.047   257         0  
+    1     0  -2.3e+02   1.3e-10   286     1e-10   105     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   1.3e-10   286     3e-05    12     0.047   257         0  
+    1     0  -1.9e-10   1.2e-15   341   3.6e-14    26     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 2 iterations
+⚙️ u=[1.    1.    0.159]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 1.0, 'led': 0.15916662957233974, 'timestamp': 1761906716.0492754}
+
+────────────────────────────────────────────
+⏱ [STEP 020] t=1761906716.03 (Δt=5.0s)
+🌡 Temp=15.1°C  💧Hum=84.0%  ☁️CO₂=452ppm  💡Light=8.0lx
+🌞 Rad=10W/m²  🌬OutT=13.1°C  💧OutH=89%
+⚙️ u_opt → FAN=1.00 | HEATER=1.00 | LED=0.16
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 15.3, 'hum_in': 83.0, 'co2_in': 451.0, 'light_in': 9.600000000000001, 'timestamp': 1761906723.6276517}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 12, 'co2_out': 431, 'temp_out': 13.3, 'hum_out': 88, 'timestamp': 1761906723.6276386}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0       1.6   247   2.9e+02     3     0.047   257         0  
+    1     0  -9.8e+02   2.9e-11   314   5.8e-11   102     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   2.9e-11   314   3.4e-05    12     0.047   257         0  
+    1     0  -2.4e-10   3.4e-12   321   3.9e-14    14     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 2 iterations
+⚙️ u=[1.    1.    0.158]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 1.0, 'led': 0.15766663001904363, 'timestamp': 1761906721.0774527}
+
+────────────────────────────────────────────
+⏱ [STEP 021] t=1761906721.05 (Δt=5.0s)
+🌡 Temp=15.3°C  💧Hum=83.0%  ☁️CO₂=451ppm  💡Light=9.6lx
+🌞 Rad=12W/m²  🌬OutT=13.3°C  💧OutH=88%
+⚙️ u_opt → FAN=1.00 | HEATER=1.00 | LED=0.16
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 15.7, 'hum_in': 81.0, 'co2_in': 449.0, 'light_in': 12.0, 'timestamp': 1761906728.633532}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 15, 'co2_out': 429, 'temp_out': 13.7, 'hum_out': 86, 'timestamp': 1761906728.6335096}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0       2.4   247   2.9e+02     3     0.047   257         0  
+    1     0  -1.6e+03     6e-11   286   5.9e-11   123     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0     6e-11   286   0.00014    12     0.047   257         0  
+    1     0  -4.3e-09   6.4e-12   321   3.5e-14    18     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 2 iterations
+⚙️ u=[1.    1.    0.155]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 1.0, 'led': 0.15541663078615364, 'timestamp': 1761906726.0967}
+
+────────────────────────────────────────────
+⏱ [STEP 022] t=1761906726.08 (Δt=5.0s)
+🌡 Temp=15.7°C  💧Hum=81.0%  ☁️CO₂=449ppm  💡Light=12.0lx
+🌞 Rad=15W/m²  🌬OutT=13.7°C  💧OutH=86%
+⚙️ u_opt → FAN=1.00 | HEATER=1.00 | LED=0.16
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 16.2, 'hum_in': 80.0, 'co2_in': 448.0, 'light_in': 20.0, 'timestamp': 1761906733.6391406}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 25, 'co2_out': 428, 'temp_out': 14.2, 'hum_out': 85, 'timestamp': 1761906733.6391282}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0         8   247   2.9e+02     3     0.047   257         0  
+    1     0  -2.7e+03   7.1e-11   286   1.2e-10   102     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   7.1e-11   286   4.6e-05    12     0.047   257         0  
+    1     0  -5.2e-10   9.6e-15   412   3.2e-14    30     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 2 iterations
+⚙️ u=[1.    1.    0.148]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 1.0, 'led': 0.14791663265160668, 'timestamp': 1761906731.1256826}
+
+────────────────────────────────────────────
+⏱ [STEP 023] t=1761906731.10 (Δt=5.0s)
+🌡 Temp=16.2°C  💧Hum=80.0%  ☁️CO₂=448ppm  💡Light=20.0lx
+🌞 Rad=25W/m²  🌬OutT=14.2°C  💧OutH=85%
+⚙️ u_opt → FAN=1.00 | HEATER=1.00 | LED=0.15
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 16.8, 'hum_in': 78.0, 'co2_in': 446.0, 'light_in': 32.0, 'timestamp': 1761906738.6447296}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 40, 'co2_out': 426, 'temp_out': 14.8, 'hum_out': 83, 'timestamp': 1761906738.6447034}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0        12   247   2.8e+02     3     0.047   257         0  
+    1     0  -4.1e+03   3.5e-11   314   1.4e-10   117     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   3.5e-11   314         3     1     0.047   257         0  
+    1     0  -6.7e-09   4.4e-14   251   5.3e-13   102     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 2 iterations
+⚙️ u=[1.    1.    0.137]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 1.0, 'led': 0.13666663561823794, 'timestamp': 1761906736.154777}
+
+────────────────────────────────────────────
+⏱ [STEP 024] t=1761906736.13 (Δt=5.0s)
+🌡 Temp=16.8°C  💧Hum=78.0%  ☁️CO₂=446ppm  💡Light=32.0lx
+🌞 Rad=40W/m²  🌬OutT=14.8°C  💧OutH=83%
+⚙️ u_opt → FAN=1.00 | HEATER=1.00 | LED=0.14
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 17.4, 'hum_in': 76.0, 'co2_in': 445.0, 'light_in': 44.0, 'timestamp': 1761906743.6523056}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 55, 'co2_out': 425, 'temp_out': 15.4, 'hum_out': 81, 'timestamp': 1761906743.6522925}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0        12   247   2.7e+02     3     0.047   257         0  
+    1     0  -3.7e+03   6.1e-11   314   7.7e-11   105     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   6.1e-11   314      0.49     8     0.047   257         0  
+    1     0    -0.015   3.2e-14   258   3.5e-14    30     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   5.7e-14   293   1.1e-05     8     0.047   257         0  
+    1     0  -8.1e-12   1.6e-11   286   1.7e-14    22     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   1.1e-11   286   3.8e-06     8     0.047   257         0  
+    1     0  -2.3e-13   1.6e-11   286   1.7e-14    22     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   1.4e-11   286   1.4e-06     8     0.047   257         0  
+    1     0  -3.2e-13   1.6e-11   286     2e-14    26     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 5 iterations
+⚙️ u=[1.    1.    0.125]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 1.0, 'led': 0.1254166390431919, 'timestamp': 1761906741.1925395}
+
+────────────────────────────────────────────
+⏱ [STEP 025] t=1761906741.16 (Δt=5.0s)
+🌡 Temp=17.4°C  💧Hum=76.0%  ☁️CO₂=445ppm  💡Light=44.0lx
+🌞 Rad=55W/m²  🌬OutT=15.4°C  💧OutH=81%
+⚙️ u_opt → FAN=1.00 | HEATER=1.00 | LED=0.13
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 18.2, 'hum_in': 74.0, 'co2_in': 443.0, 'light_in': 56.0, 'timestamp': 1761906748.6585555}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 70, 'co2_out': 423, 'temp_out': 16.2, 'hum_out': 79, 'timestamp': 1761906748.65842}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0        12   247   2.6e+02     3     0.047   257         0  
+    1     0  -3.7e+03   4.8e-11   300   7.9e-11   135     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   4.8e-11   300       1.2     0     0.047   257         0  
+    1     0  -3.4e-08   1.5e-14   251     1e-13   102     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 2 iterations
+⚙️ u=[1.    1.    0.114]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 1.0, 'led': 0.11416664383218988, 'timestamp': 1761906746.2265275}
+
+────────────────────────────────────────────
+⏱ [STEP 026] t=1761906746.19 (Δt=5.0s)
+🌡 Temp=18.2°C  💧Hum=74.0%  ☁️CO₂=443ppm  💡Light=56.0lx
+🌞 Rad=70W/m²  🌬OutT=16.2°C  💧OutH=79%
+⚙️ u_opt → FAN=1.00 | HEATER=1.00 | LED=0.11
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 19.1, 'hum_in': 72.0, 'co2_in': 440.0, 'light_in': 80.0, 'timestamp': 1761906753.6646938}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 100, 'co2_out': 420, 'temp_out': 17.1, 'hum_out': 77, 'timestamp': 1761906753.6646748}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0        24   247   2.4e+02     3     0.047   257         0  
+    1     0  -6.4e+03   2.5e-11   356   5.9e-11   117     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   2.5e-11   356       1.4     4     0.047   257         0  
+    1     0     -0.12   6.7e-14   258   2.1e-13   102     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   1.1e-13   258   7.7e-05     4     0.047   257         0  
+    1     0  -3.5e-10     2e-12   286   1.5e-14     2     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   1.3e-12   286   2.8e-05     4     0.047   257         0  
+    1     0  -4.5e-11     2e-12   286   1.5e-14     2     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   1.8e-12   286   9.9e-06     4     0.047   257         0  
+    1     0    -6e-12   1.1e-11   279   1.5e-14     2     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0     7e-12   279   3.6e-06     4     0.047   257         0  
+    1     0  -6.5e-13   1.1e-11   279   1.5e-14     2     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   9.5e-12   279   1.3e-06     4     0.047   257         0  
+    1     0    -9e-15   1.1e-11   279   1.5e-14     2     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 7 iterations
+⚙️ u=[1.    1.    0.092]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 1.0, 'led': 0.09166665539176096, 'timestamp': 1761906751.2735891}
+
+────────────────────────────────────────────
+⏱ [STEP 027] t=1761906751.23 (Δt=5.0s)
+🌡 Temp=19.1°C  💧Hum=72.0%  ☁️CO₂=440ppm  💡Light=80.0lx
+🌞 Rad=100W/m²  🌬OutT=17.1°C  💧OutH=77%
+⚙️ u_opt → FAN=1.00 | HEATER=1.00 | LED=0.09
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 20.1, 'hum_in': 69.0, 'co2_in': 435.0, 'light_in': 104.0, 'timestamp': 1761906758.6840467}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 130, 'co2_out': 415, 'temp_out': 18.1, 'hum_out': 74, 'timestamp': 1761906758.684033}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0        24   247   2.2e+02     3     0.047   257         0  
+    1     0    -6e+03   2.3e-11   314   5.6e-11   105     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   2.3e-11   314    0.0046     0     0.047   257         0  
+    1     0  -1.2e-06   2.8e-15   299   1.7e-14    18     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 2 iterations
+⚙️ u=[1.    1.    0.069]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 1.0, 'led': 0.06916667971769978, 'timestamp': 1761906756.297676}
+
+────────────────────────────────────────────
+⏱ [STEP 028] t=1761906756.27 (Δt=5.0s)
+🌡 Temp=20.1°C  💧Hum=69.0%  ☁️CO₂=435ppm  💡Light=104.0lx
+🌞 Rad=130W/m²  🌬OutT=18.1°C  💧OutH=74%
+⚙️ u_opt → FAN=1.00 | HEATER=1.00 | LED=0.07
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 21.1, 'hum_in': 66.0, 'co2_in': 430.0, 'light_in': 128.0, 'timestamp': 1761906763.6902235}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 160, 'co2_out': 410, 'temp_out': 19.1, 'hum_out': 71, 'timestamp': 1761906763.6902034}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0        24   247     2e+02     3     0.047   257         0  
+    1     0  -5.1e+03     2e-11   258   2.4e-11   129     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0     2e-11   258    0.0071     0     0.047   257         0  
+    1     0  -1.5e-06   2.8e-15   299   1.3e-14     3     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 2 iterations
+⚙️ u=[1.    1.    0.047]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 1.0, 'led': 0.04666672295177745, 'timestamp': 1761906761.3328722}
+
+────────────────────────────────────────────
+⏱ [STEP 029] t=1761906761.30 (Δt=5.0s)
+🌡 Temp=21.1°C  💧Hum=66.0%  ☁️CO₂=430ppm  💡Light=128.0lx
+🌞 Rad=160W/m²  🌬OutT=19.1°C  💧OutH=71%
+⚙️ u_opt → FAN=1.00 | HEATER=1.00 | LED=0.05
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 22.0, 'hum_in': 63.0, 'co2_in': 425.0, 'light_in': 152.0, 'timestamp': 1761906768.6971254}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 190, 'co2_out': 405, 'temp_out': 20.0, 'hum_out': 68, 'timestamp': 1761906768.6970468}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0        24   247   1.7e+02     3     0.047   257         0  
+    1     0  -4.2e+03   4.1e-12   272   3.8e-11   102     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   4.1e-12   272    0.0022     4     0.047   257         0  
+    1     0  -6.1e-07   4.5e-16   251   1.1e-14     3     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 2 iterations
+⚙️ u=[1.    0.772 0.024]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 0.7721300525253659, 'led': 0.0241667864033355, 'timestamp': 1761906766.3526237}
+
+────────────────────────────────────────────
+⏱ [STEP 030] t=1761906766.34 (Δt=5.0s)
+🌡 Temp=22.0°C  💧Hum=63.0%  ☁️CO₂=425ppm  💡Light=152.0lx
+🌞 Rad=190W/m²  🌬OutT=20.0°C  💧OutH=68%
+⚙️ u_opt → FAN=1.00 | HEATER=0.77 | LED=0.02
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 22.5, 'hum_in': 62.0, 'co2_in': 423.0, 'light_in': 168.0, 'timestamp': 1761906773.7040782}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 210, 'co2_out': 403, 'temp_out': 20.5, 'hum_out': 67, 'timestamp': 1761906773.7040663}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0        16   247   1.5e+02     3     0.047   257         0  
+    1     0  -2.3e+03   2.5e-12   328   2.4e-11   102     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   2.5e-12   328    0.0022     0     0.047   257         0  
+    1     0  -2.9e-09     1e-14   362   6.8e-15     3     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 2 iterations
+⚙️ u=[1.    0.    0.009]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 0.0, 'led': 0.009166819422782278, 'timestamp': 1761906771.368941}
+
+────────────────────────────────────────────
+⏱ [STEP 031] t=1761906771.35 (Δt=5.0s)
+🌡 Temp=22.5°C  💧Hum=62.0%  ☁️CO₂=423ppm  💡Light=168.0lx
+🌞 Rad=210W/m²  🌬OutT=20.5°C  💧OutH=67%
+⚙️ u_opt → FAN=1.00 | HEATER=0.00 | LED=0.01
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 23.0, 'hum_in': 61.0, 'co2_in': 420.0, 'light_in': 184.0, 'timestamp': 1761906778.711094}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 230, 'co2_out': 400, 'temp_out': 21.0, 'hum_out': 66, 'timestamp': 1761906778.7110736}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0        16   247   1.3e+02     3     0.047   257         0  
+    1     0    -2e+03   7.5e-12   314   1.1e-11   117     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   7.6e-12   314    0.0041     0     0.047   257         0  
+    1     0  -5.2e-09   6.3e-15   341     3e-15    58     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 2 iterations
+⚙️ u=[1. 0. 0.]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906776.4035027}
+
+────────────────────────────────────────────
+⏱ [STEP 032] t=1761906776.37 (Δt=5.0s)
+🌡 Temp=23.0°C  💧Hum=61.0%  ☁️CO₂=420ppm  💡Light=184.0lx
+🌞 Rad=230W/m²  🌬OutT=21.0°C  💧OutH=66%
+⚙️ u_opt → FAN=1.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 23.3, 'hum_in': 60.0, 'co2_in': 418.0, 'light_in': 200.0, 'timestamp': 1761906783.7173102}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 250, 'co2_out': 398, 'temp_out': 21.3, 'hum_out': 65, 'timestamp': 1761906783.7172883}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0        16   247   1.2e+02     3     0.047   257         0  
+    1     0  -1.7e+03   1.2e-11   258   1.8e-11   120     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   1.2e-11   258    0.0025     0     0.047   257         0  
+    1     0  -1.3e-08     1e-14   362   5.4e-15    18     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 2 iterations
+⚙️ u=[1. 0. 0.]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906781.4228907}
+
+────────────────────────────────────────────
+⏱ [STEP 033] t=1761906781.41 (Δt=5.0s)
+🌡 Temp=23.3°C  💧Hum=60.0%  ☁️CO₂=418ppm  💡Light=200.0lx
+🌞 Rad=250W/m²  🌬OutT=21.3°C  💧OutH=65%
+⚙️ u_opt → FAN=1.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 23.6, 'hum_in': 59.0, 'co2_in': 416.0, 'light_in': 216.0, 'timestamp': 1761906788.7232797}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 270, 'co2_out': 396, 'temp_out': 21.6, 'hum_out': 64, 'timestamp': 1761906788.7232661}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0        16   247     1e+02     3     0.047   257         0  
+    1     0  -1.4e+03     2e-11   286   2.2e-11   117     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0     2e-11   286    0.0028     0     0.047   257         0  
+    1     0  -2.7e-08   8.8e-15   397   7.9e-15    10     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 2 iterations
+⚙️ u=[1. 0. 0.]
+📤 Sent actuator command → {'fan': 1.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906786.454848}
+
+────────────────────────────────────────────
+⏱ [STEP 034] t=1761906786.42 (Δt=5.0s)
+🌡 Temp=23.6°C  💧Hum=59.0%  ☁️CO₂=416ppm  💡Light=216.0lx
+🌞 Rad=270W/m²  🌬OutT=21.6°C  💧OutH=64%
+⚙️ u_opt → FAN=1.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 24.0, 'hum_in': 58.0, 'co2_in': 414.0, 'light_in': 232.0, 'timestamp': 1761906793.7295094}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 290, 'co2_out': 394, 'temp_out': 22.0, 'hum_out': 63, 'timestamp': 1761906793.7294948}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0        16   247        84     3     0.047   257         0  
+    1     0  -1.1e+03   2.5e-11   272   2.8e-11   117     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   2.5e-11   272     0.004     0     0.047   257         0  
+    1     0  -5.9e-08   7.8e-15   412   1.1e-14    10     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 2 iterations
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906791.4761987}
+
+────────────────────────────────────────────
+⏱ [STEP 035] t=1761906791.46 (Δt=5.0s)
+🌡 Temp=24.0°C  💧Hum=58.0%  ☁️CO₂=414ppm  💡Light=232.0lx
+🌞 Rad=290W/m²  🌬OutT=22.0°C  💧OutH=63%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 24.5, 'hum_in': 58.0, 'co2_in': 412.0, 'light_in': 240.0, 'timestamp': 1761906798.7354112}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 300, 'co2_out': 392, 'temp_out': 22.5, 'hum_out': 63, 'timestamp': 1761906798.7353983}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0         8   247        68     3     0.047   257         0  
+    1     0  -3.2e+02   4.2e-11   258   3.8e-11   105     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   4.2e-11   258    0.0039     0     0.047   257         0  
+    1     0  -5.6e-09   3.3e-13   300   1.1e-14    30     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 2 iterations
+⚙️ u=[0.044 0.    0.   ]
+📤 Sent actuator command → {'fan': 0.04371107468174368, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906796.5122423}
+
+────────────────────────────────────────────
+⏱ [STEP 036] t=1761906796.48 (Δt=5.0s)
+🌡 Temp=24.5°C  💧Hum=58.0%  ☁️CO₂=412ppm  💡Light=240.0lx
+🌞 Rad=300W/m²  🌬OutT=22.5°C  💧OutH=63%
+⚙️ u_opt → FAN=0.04 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 25.0, 'hum_in': 57.0, 'co2_in': 410.0, 'light_in': 248.0, 'timestamp': 1761906803.741554}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 310, 'co2_out': 390, 'temp_out': 23.0, 'hum_out': 62, 'timestamp': 1761906803.741543}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0         8   247        60     3     0.047   257         0  
+    1     0  -1.9e+02   2.6e-11   286     3e-11   135     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   2.6e-11   286    0.0016     4     0.047   257         0  
+    1     0  -1.5e-07   7.8e-15   362   1.2e-14     2     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 2 iterations
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906801.5302913}
+
+────────────────────────────────────────────
+⏱ [STEP 037] t=1761906801.52 (Δt=5.0s)
+🌡 Temp=25.0°C  💧Hum=57.0%  ☁️CO₂=410ppm  💡Light=248.0lx
+🌞 Rad=310W/m²  🌬OutT=23.0°C  💧OutH=62%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 25.2, 'hum_in': 56.0, 'co2_in': 409.0, 'light_in': 256.0, 'timestamp': 1761906808.7487562}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 320, 'co2_out': 389, 'temp_out': 23.2, 'hum_out': 61, 'timestamp': 1761906808.7487197}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0         8   247        52     3     0.047   257         0  
+    1     0  -2.2e+02   9.7e-11   258     6e-11   135     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   9.7e-11   258   0.00093     4     0.047   257         0  
+    1     0  -6.2e-08   9.6e-15   404   1.3e-14    42     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 2 iterations
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906806.5608382}
+
+────────────────────────────────────────────
+⏱ [STEP 038] t=1761906806.53 (Δt=5.0s)
+🌡 Temp=25.2°C  💧Hum=56.0%  ☁️CO₂=409ppm  💡Light=256.0lx
+🌞 Rad=320W/m²  🌬OutT=23.2°C  💧OutH=61%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 25.4, 'hum_in': 56.0, 'co2_in': 408.0, 'light_in': 264.0, 'timestamp': 1761906813.7558084}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 330, 'co2_out': 388, 'temp_out': 23.4, 'hum_out': 61, 'timestamp': 1761906813.7557917}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0         8   247        44     3     0.047   257         0  
+    1     0  -1.8e+02   4.4e-11   258   4.8e-11   102     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   4.4e-11   258   0.00017     0     0.047   257         0  
+    1     0  -2.9e-10   1.7e-11   370   1.4e-14    42     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 2 iterations
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906811.578485}
+
+────────────────────────────────────────────
+⏱ [STEP 039] t=1761906811.56 (Δt=5.0s)
+🌡 Temp=25.4°C  💧Hum=56.0%  ☁️CO₂=408ppm  💡Light=264.0lx
+🌞 Rad=330W/m²  🌬OutT=23.4°C  💧OutH=61%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 25.6, 'hum_in': 55.0, 'co2_in': 408.0, 'light_in': 272.0, 'timestamp': 1761906818.7640934}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 340, 'co2_out': 388, 'temp_out': 23.6, 'hum_out': 60, 'timestamp': 1761906818.764077}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0         8   247        36     3     0.047   257         0  
+    1     0  -2.1e+02   4.5e-11   300   4.9e-11   108     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   4.5e-11   300    0.0011     0     0.047   257         0  
+    1     0  -6.4e-08   1.1e-15   299   8.1e-15    14     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 2 iterations
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906816.6165001}
+
+────────────────────────────────────────────
+⏱ [STEP 040] t=1761906816.58 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   5.7e-14   265        28     3     0.047   257         0  
+    1     0   3.1e-12   3.1e-11   328   4.4e-11   123     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906821.6304996}
+
+────────────────────────────────────────────
+⏱ [STEP 041] t=1761906821.62 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0     2e-11   328        28     3     0.047   257         0  
+    1     0   5.6e-12     3e-11   314   6.3e-11   117     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906826.6424263}
+
+────────────────────────────────────────────
+⏱ [STEP 042] t=1761906826.63 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0     2e-11   328        28     3     0.047   257         0  
+    1     0  -6.4e-12   5.2e-11   272   3.3e-11   102     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906831.6681933}
+
+────────────────────────────────────────────
+⏱ [STEP 043] t=1761906831.64 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   3.9e-11   272        28     3     0.047   257         0  
+    1     0   1.9e-12   2.6e-11   286   3.3e-11   102     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906836.6936448}
+
+────────────────────────────────────────────
+⏱ [STEP 044] t=1761906836.67 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   2.6e-11   286        28     3     0.047   257         0  
+    1     0   2.2e-12   3.3e-11   286   3.1e-11   108     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906841.707734}
+
+────────────────────────────────────────────
+⏱ [STEP 045] t=1761906841.70 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   2.1e-11   300        28     3     0.047   257         0  
+    1     0     2e-12   5.9e-11   258   4.3e-11   135     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906846.7339096}
+
+────────────────────────────────────────────
+⏱ [STEP 046] t=1761906846.71 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   4.3e-11   258        28     3     0.047   257         0  
+    1     0   1.6e-12   4.4e-11   258   4.4e-11   123     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906851.7606707}
+
+────────────────────────────────────────────
+⏱ [STEP 047] t=1761906851.74 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   4.4e-11   258        28     3     0.047   257         0  
+    1     0   3.4e-12   6.5e-11   286   4.5e-11   102     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906856.787957}
+
+────────────────────────────────────────────
+⏱ [STEP 048] t=1761906856.76 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   4.5e-11   286        28     3     0.047   257         0  
+    1     0  -1.9e-12   5.9e-11   258   5.6e-11   105     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906861.817877}
+
+────────────────────────────────────────────
+⏱ [STEP 049] t=1761906861.79 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   4.5e-11   286        28     3     0.047   257         0  
+    1     0   3.6e-12   3.1e-11   300     5e-11   117     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906866.8317077}
+
+────────────────────────────────────────────
+⏱ [STEP 050] t=1761906866.82 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   3.1e-11   300        28     3     0.047   257         0  
+    1     0  -2.3e-12   1.9e-11   286   2.4e-11   135     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906871.856028}
+
+────────────────────────────────────────────
+⏱ [STEP 051] t=1761906871.83 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   1.9e-11   286        28     3     0.047   257         0  
+    1     0  -3.4e-12   8.3e-11   258   3.1e-11   102     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906876.8858695}
+
+────────────────────────────────────────────
+⏱ [STEP 052] t=1761906876.86 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   4.9e-11   258        28     3     0.047   257         0  
+    1     0   2.5e-12   4.9e-11   258   2.4e-11   126     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906881.9121923}
+
+────────────────────────────────────────────
+⏱ [STEP 053] t=1761906881.89 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   4.9e-11   258        28     3     0.047   257         0  
+    1     0  -2.1e-12   4.9e-11   272   4.3e-11   105     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906886.936724}
+
+────────────────────────────────────────────
+⏱ [STEP 054] t=1761906886.91 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   4.3e-11   272        28     3     0.047   257         0  
+    1     0  -1.6e-12   4.2e-11   286   3.1e-11   108     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906891.9629629}
+
+────────────────────────────────────────────
+⏱ [STEP 055] t=1761906891.94 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   3.8e-11   286        28     3     0.047   257         0  
+    1     0   3.5e-13   3.8e-11   286   4.3e-11   105     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906896.99123}
+
+────────────────────────────────────────────
+⏱ [STEP 056] t=1761906896.97 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   3.8e-11   286        28     3     0.047   257         0  
+    1     0  -4.5e-13   6.9e-11   272   2.6e-11   117     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906902.0064785}
+
+────────────────────────────────────────────
+⏱ [STEP 057] t=1761906901.99 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   4.1e-11   272        28     3     0.047   257         0  
+    1     0  -3.5e-12   3.3e-11   258   3.1e-11   105     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906907.0180662}
+
+────────────────────────────────────────────
+⏱ [STEP 058] t=1761906907.01 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   3.4e-11   258        28     3     0.047   257         0  
+    1     0   2.4e-12   9.4e-11   258   4.3e-11   105     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906912.0452762}
+
+────────────────────────────────────────────
+⏱ [STEP 059] t=1761906912.02 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   4.8e-11   258        28     3     0.047   257         0  
+    1     0   2.6e-12   2.2e-11   314     5e-11   117     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906917.0592387}
+
+────────────────────────────────────────────
+⏱ [STEP 060] t=1761906917.05 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   2.2e-11   314        28     3     0.047   257         0  
+    1     0   4.4e-12     5e-11   300   3.6e-11   120     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906922.081942}
+
+────────────────────────────────────────────
+⏱ [STEP 061] t=1761906922.06 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+🟢 MQTT connected successfully, subscribed to {'sensor': 'farmA/esp1/sensor', 'disturbance': 'farmA/esp1/disturbance', 'actuator_control': 'farmA/esp1/actuator/control'}
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   3.9e-11   300        28     3     0.047   257         0  
+    1     0  -3.9e-12   1.3e-10   258   4.5e-11   102     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906927.0963094}
+
+────────────────────────────────────────────
+⏱ [STEP 062] t=1761906927.08 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   7.9e-11   258        28     3     0.047   257         0  
+    1     0   5.1e-13   5.4e-11   258   2.4e-11   135     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906932.122728}
+
+────────────────────────────────────────────
+⏱ [STEP 063] t=1761906932.10 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   5.9e-11   258        28     3     0.047   257         0  
+    1     0  -5.5e-12   3.9e-11   314   6.3e-11   117     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906937.1376216}
+
+────────────────────────────────────────────
+⏱ [STEP 064] t=1761906937.13 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   3.9e-11   314        28     3     0.047   257         0  
+    1     0     3e-12   4.4e-11   258   4.4e-11   102     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906942.1621435}
+
+────────────────────────────────────────────
+⏱ [STEP 065] t=1761906942.14 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   3.9e-11   258        28     3     0.047   257         0  
+    1     0    -5e-12     6e-11   286   3.3e-11   102     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906947.1890302}
+
+────────────────────────────────────────────
+⏱ [STEP 066] t=1761906947.17 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   3.6e-11   286        28     3     0.047   257         0  
+    1     0     4e-12   1.7e-11   286     2e-11   129     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906952.2154028}
+
+────────────────────────────────────────────
+⏱ [STEP 067] t=1761906952.19 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   1.7e-11   286        28     3     0.047   257         0  
+    1     0  -2.1e-12   7.2e-11   286   3.8e-11   120     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906957.2421284}
+
+────────────────────────────────────────────
+⏱ [STEP 068] t=1761906957.22 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0     4e-11   286        28     3     0.047   257         0  
+    1     0   1.1e-12   3.1e-11   286   4.6e-11   108     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906962.2669158}
+
+────────────────────────────────────────────
+⏱ [STEP 069] t=1761906962.25 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   3.1e-11   286        28     3     0.047   257         0  
+    1     0  -2.7e-13     4e-11   300   4.5e-11   102     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906967.2956345}
+
+────────────────────────────────────────────
+⏱ [STEP 070] t=1761906967.27 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   3.1e-11   286        28     3     0.047   257         0  
+    1     0  -1.5e-12   6.8e-11   286     5e-11   117     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906972.323069}
+
+────────────────────────────────────────────
+⏱ [STEP 071] t=1761906972.30 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   5.5e-11   286        28     3     0.047   257         0  
+    1     0   4.2e-12   9.2e-11   258   4.3e-11   105     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906977.3516202}
+
+────────────────────────────────────────────
+⏱ [STEP 072] t=1761906977.33 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   5.5e-11   286        28     3     0.047   257         0  
+    1     0   6.2e-13   1.8e-11   272   5.3e-11   126     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906982.3765488}
+
+────────────────────────────────────────────
+⏱ [STEP 073] t=1761906982.36 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   1.8e-11   272        28     3     0.047   257         0  
+    1     0     1e-13   4.7e-11   286   2.6e-11   129     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906987.4064124}
+
+────────────────────────────────────────────
+⏱ [STEP 074] t=1761906987.38 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   3.5e-11   286        28     3     0.047   257         0  
+    1     0  -2.3e-12   3.3e-11   258   5.2e-11   117     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906992.4216626}
+
+────────────────────────────────────────────
+⏱ [STEP 075] t=1761906992.41 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   2.8e-11   258        28     3     0.047   257         0  
+    1     0   1.9e-12   3.8e-11   300   4.6e-11   108     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761906997.4495022}
+
+────────────────────────────────────────────
+⏱ [STEP 076] t=1761906997.42 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   2.8e-11   258        28     3     0.047   257         0  
+    1     0   2.2e-12   4.6e-11   286   4.5e-11   102     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761907002.470709}
+
+────────────────────────────────────────────
+⏱ [STEP 077] t=1761907002.45 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   3.5e-11   286        28     3     0.047   257         0  
+    1     0   3.1e-12   3.5e-11   286   4.3e-11   105     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761907007.499198}
+
+────────────────────────────────────────────
+⏱ [STEP 078] t=1761907007.47 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   3.5e-11   286        28     3     0.047   257         0  
+    1     0     1e-12   5.9e-11   258   3.8e-11   111     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761907012.5166516}
+
+────────────────────────────────────────────
+⏱ [STEP 079] t=1761907012.50 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   3.6e-11   258        28     3     0.047   257         0  
+    1     0   2.3e-12   3.6e-11   258   3.8e-11   117     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761907017.543966}
+
+────────────────────────────────────────────
+⏱ [STEP 080] t=1761907017.52 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   3.6e-11   258        28     3     0.047   257         0  
+    1     0    -4e-14   2.1e-11   300   4.3e-11   105     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761907022.5582283}
+
+────────────────────────────────────────────
+⏱ [STEP 081] t=1761907022.55 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   2.1e-11   300        28     3     0.047   257         0  
+    1     0   7.9e-13   6.5e-11   258   1.8e-11   123     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761907027.5804217}
+
+────────────────────────────────────────────
+⏱ [STEP 082] t=1761907027.56 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0     4e-11   258        28     3     0.047   257         0  
+    1     0   1.8e-12     4e-11   258   5.9e-11   105     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761907032.596665}
+
+────────────────────────────────────────────
+⏱ [STEP 083] t=1761907032.58 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0     4e-11   258        28     3     0.047   257         0  
+    1     0   2.8e-12   1.2e-11   272   4.4e-11   111     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761907037.6081626}
+
+────────────────────────────────────────────
+⏱ [STEP 084] t=1761907037.60 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   1.2e-11   272        28     3     0.047   257         0  
+    1     0   1.9e-12   1.3e-11   328   2.5e-11   117     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761907042.6250057}
+
+────────────────────────────────────────────
+⏱ [STEP 085] t=1761907042.61 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   1.3e-11   328        28     3     0.047   257         0  
+    1     0   2.5e-13   2.7e-11   286   6.9e-11   105     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761907047.6507187}
+
+────────────────────────────────────────────
+⏱ [STEP 086] t=1761907047.63 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   1.4e-11   286        28     3     0.047   257         0  
+    1     0  -3.6e-13     2e-11   314   5.6e-11   123     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761907052.6759367}
+
+────────────────────────────────────────────
+⏱ [STEP 087] t=1761907052.65 (Δt=5.0s)
+🌡 Temp=25.6°C  💧Hum=55.0%  ☁️CO₂=408ppm  💡Light=272.0lx
+🌞 Rad=340W/m²  🌬OutT=23.6°C  💧OutH=60%
+⚙️ u_opt → FAN=0.00 | HEATER=0.00 | LED=0.00
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).

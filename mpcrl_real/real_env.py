@@ -17,7 +17,7 @@ import paho.mqtt.client as mqtt
 # ───────────────────────────────────────────────────────
 @dataclass
 class EnvConfig:
-    broker_host: str = "211.106.231.24"
+    broker_host: str = "172.27.148.207"
     broker_port: int = 1883
     farm_id: str = "farmA"
     esp_id: str = "esp1"
