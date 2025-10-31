@@ -1,3 +1,0 @@
-numpy>=1.25
-casadi>=3.6
-csnlp>=0.8.0

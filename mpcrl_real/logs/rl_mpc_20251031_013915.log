@@ -1,0 +1,48 @@
+📝 Logging to logs/rl_mpc_20251031_013915.log
+🚀 Real-world RL-MPC (CasADi) starting...
+✅ MQTT connected → 211.106.231.24:1883
+🟢 MQTT connected successfully, subscribed to {'sensor': 'farmA/esp1/sensor', 'disturbance': 'farmA/esp1/disturbance', 'actuator_control': 'farmA/esp1/actuator/control'}
+📡 Subscribed topics: {'sensor': 'farmA/esp1/sensor', 'disturbance': 'farmA/esp1/disturbance', 'actuator_control': 'farmA/esp1/actuator/control'}
+-------------------------------------------
+This is casadi::QRQP
+Number of variables:                             244
+Number of constraints:                           172
+Number of nonzeros in H:                         832
+Number of nonzeros in A:                         529
+Number of nonzeros in KKT:                      2062
+Number of nonzeros in QR(V):                    3055
+Number of nonzeros in QR(R):                    5799
+✅ RL-MPC loop running...
+
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0       4.2   250     3e+02     3     0.047   257         0  
+    1     0  -1.3e+06   1.1e-09   314   7.9e-10   108     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.04999997608027655, 'timestamp': 1761842356.116671}
+🏆 r=-18120.0002 | J_track=4000.0000 | dU=0.0002 | slack=14120.0000 | energy=0.0000 | growth=0.0000
+
+────────────────────────────────────────────
+⏱ [STEP 001] t=1761842356.12 (Δt=5.0s)
+🌡  Temp=0.0°C  💧Hum=0.0%  ☁️CO₂=0ppm  💡Light=0.0lx
+🌞  Rad=0W/m²   🌬OutT=15.0°C  💧OutH=50%
+⚙️  u_opt → FAN=0.00 | HEATER=0.00 | LED=0.05
+🏆 Reward = -18120.0002
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 16.0, 'hum_in': 82.0, 'co2_in': 444.0, 'light_in': 3.2, 'timestamp': 1761842357.6578538}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 4, 'co2_out': 424, 'temp_out': 14.0, 'hum_out': 87, 'timestamp': 1761842357.6578538}
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   4.4e+02   246     3e+02     3     0.047   257         0  
+    1     0  -6.9e+05   2.2e-10   314   4.2e-10   105     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+📤 Sent actuator command → {'fan': 0.3, 'heater': 0.3, 'led': 0.049099979186753726, 'timestamp': 1761842361.1195185}
+🏆 r=-1240.0272 | J_track=500.0000 | dU=0.0182 | slack=740.0000 | energy=0.0090 | growth=0.0000
+
+────────────────────────────────────────────
+⏱ [STEP 002] t=1761842361.12 (Δt=5.0s)
+🌡  Temp=16.0°C  💧Hum=82.0%  ☁️CO₂=444ppm  💡Light=3.2lx
+🌞  Rad=4W/m²   🌬OutT=14.0°C  💧OutH=87%
+⚙️  u_opt → FAN=0.30 | HEATER=0.30 | LED=0.05
+🏆 Reward = -1240.0272
+────────────────────────────────────────────
+📩 MQTT farmA/esp1/sensor : {'temp_in': 16.2, 'hum_in': 81.0, 'co2_in': 443.0, 'light_in': 4.0, 'timestamp': 1761842362.6682496}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 5, 'co2_out': 423, 'temp_out': 14.2, 'hum_out': 86, 'timestamp': 1761842362.6682496}

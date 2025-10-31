@@ -1,0 +1,39 @@
+📝 Logging to logs/rl_mpc_20251031_140858.log
+🚀 Real-world RL-MPC (CasADi) starting...
+❌ MQTT connection failed: timed out
+💡 Mosquitto가 실행 중인지 확인하세요.
+📡 Subscribed topics: {'sensor': 'farmA/esp1/sensor', 'disturbance': 'farmA/esp1/disturbance', 'actuator_control': 'farmA/esp1/actuator/control'}
+-------------------------------------------
+This is casadi::QRQP
+Number of variables:                             244
+Number of constraints:                           172
+Number of nonzeros in H:                         832
+Number of nonzeros in A:                         529
+Number of nonzeros in KKT:                      2062
+Number of nonzeros in QR(V):                    3055
+Number of nonzeros in QR(R):                    5799
+✅ RL-MPC loop running...
+
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0       4.2   250   3.6e+02     1     0.047   257         0  
+    1     0  -1.5e+06   1.1e-09   300   1.5e-09   123     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   1.1e-09   300        37    93     0.047   257         0  
+    1     0  -4.3e+03   4.4e-12   286   9.9e-12   147     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   4.3e-12   286      0.79     9     0.047   257         0  
+    1     0    -0.031   1.5e-13   258   2.9e-13     2     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   1.7e-13   258     3e-06     8     0.047   257         0  
+    1     0  -2.2e-12     9e-15   345   2.9e-13     2     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 4 iterations
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.049999985408850776, 'timestamp': 1761887344.7515929}
+🏆 Reward=-12472.0001 | Track=4000.000 Δu=0.000 Slack=8472.000 Energy=0.000 Growth=0.000
+
+────────────────────────────────────────────
+⏱ [STEP 001] t=1761887344.72 (Δt=5.0s)
+🌡  Temp=0.0°C  💧Hum=0.0%  ☁️CO₂=0ppm  💡Light=0.0lx
+🌞  Rad=0W/m²   🌬OutT=15.0°C  💧OutH=50%
+⚙️  u_opt → FAN=0.00 | HEATER=0.00 | LED=0.05
+🏆 Reward = -12472.0001
+────────────────────────────────────────────

@@ -1,5 +1,0 @@
-① Δu 제약 강화	du_lim = 0.1 → 0.07	제어 입력 변화를 제한해 진동 억제	20 ep
-	model.py # 수정 (Δu 제약 강화)
-	@staticmethod
-	def get_du_lim() -> np.ndarray:
-    		return 0.07 * Model.get_u_max()  # 한 스텝당 변화폭 30% 감소

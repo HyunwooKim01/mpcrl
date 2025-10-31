@@ -1,0 +1,327 @@
+📝 Logging to logs/rl_mpc_20251031_140916.log
+🚀 Real-world RL-MPC (CasADi) starting...
+❌ MQTT connection failed: timed out
+💡 Mosquitto가 실행 중인지 확인하세요.
+📡 Subscribed topics: {'sensor': 'farmA/esp1/sensor', 'disturbance': 'farmA/esp1/disturbance', 'actuator_control': 'farmA/esp1/actuator/control'}
+-------------------------------------------
+This is casadi::QRQP
+Number of variables:                             244
+Number of constraints:                           172
+Number of nonzeros in H:                         832
+Number of nonzeros in A:                         529
+Number of nonzeros in KKT:                      2062
+Number of nonzeros in QR(V):                    3055
+Number of nonzeros in QR(R):                    5799
+✅ RL-MPC loop running...
+
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0       4.2   250   3.6e+02     1     0.047   257         0  
+    1     0  -1.5e+06   1.1e-09   300   1.5e-09   123     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   1.1e-09   300        37    93     0.047   257         0  
+    1     0  -4.3e+03   4.4e-12   286   9.9e-12   147     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   4.3e-12   286      0.79     9     0.047   257         0  
+    1     0    -0.031   1.5e-13   258   2.9e-13     2     0.047   257         1  Converged
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   1.7e-13   258     3e-06     8     0.047   257         0  
+    1     0  -2.2e-12     9e-15   345   2.9e-13     2     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 4 iterations
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.049999985408850776, 'timestamp': 1761887363.3784485}
+🏆 Reward=-12472.0001 | Track=4000.000 Δu=0.000 Slack=8472.000 Energy=0.000 Growth=0.000
+
+────────────────────────────────────────────
+⏱ [STEP 001] t=1761887363.35 (Δt=5.0s)
+🌡  Temp=0.0°C  💧Hum=0.0%  ☁️CO₂=0ppm  💡Light=0.0lx
+🌞  Rad=0W/m²   🌬OutT=15.0°C  💧OutH=50%
+⚙️  u_opt → FAN=0.00 | HEATER=0.00 | LED=0.05
+🏆 Reward = -12472.0001
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0      0.05   254   3.6e+02     1     0.047   257         0  
+    1     0   -0.0014   2.3e-09   258   1.5e-09   129     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.049999986334773976, 'timestamp': 1761887368.4023662}
+🏆 Reward=-12472.0000 | Track=4000.000 Δu=0.000 Slack=8472.000 Energy=0.000 Growth=0.000
+
+────────────────────────────────────────────
+⏱ [STEP 002] t=1761887368.38 (Δt=5.0s)
+🌡  Temp=0.0°C  💧Hum=0.0%  ☁️CO₂=0ppm  💡Light=0.0lx
+🌞  Rad=0W/m²   🌬OutT=15.0°C  💧OutH=50%
+⚙️  u_opt → FAN=0.00 | HEATER=0.00 | LED=0.05
+🏆 Reward = -12472.0000
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   2.3e-09   258   3.6e+02     1     0.047   257         0  
+    1     0  -3.3e-09   9.1e-10   300   1.1e-09   135     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.08848520681875821, 'timestamp': 1761887373.4146419}
+🏆 Reward=-12472.0002 | Track=4000.000 Δu=0.000 Slack=8472.000 Energy=0.000 Growth=0.000
+
+────────────────────────────────────────────
+⏱ [STEP 003] t=1761887373.41 (Δt=5.0s)
+🌡  Temp=0.0°C  💧Hum=0.0%  ☁️CO₂=0ppm  💡Light=0.0lx
+🌞  Rad=0W/m²   🌬OutT=15.0°C  💧OutH=50%
+⚙️  u_opt → FAN=0.00 | HEATER=0.00 | LED=0.09
+🏆 Reward = -12472.0002
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0     0.038   254   3.6e+02     1     0.047   257         0  
+    1     0  -0.00075   3.4e-10   300   1.3e-09   129     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.13027214212125465, 'timestamp': 1761887378.4292865}
+🏆 Reward=-12472.0003 | Track=4000.000 Δu=0.000 Slack=8472.000 Energy=0.000 Growth=0.000
+
+────────────────────────────────────────────
+⏱ [STEP 004] t=1761887378.42 (Δt=5.0s)
+🌡  Temp=0.0°C  💧Hum=0.0%  ☁️CO₂=0ppm  💡Light=0.0lx
+🌞  Rad=0W/m²   🌬OutT=15.0°C  💧OutH=50%
+⚙️  u_opt → FAN=0.00 | HEATER=0.00 | LED=0.13
+🏆 Reward = -12472.0003
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0     0.042   254   3.6e+02     1     0.047   257         0  
+    1     0  -0.00048   9.8e-10   258   8.9e-10   117     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.16666662607097363, 'timestamp': 1761887383.4410145}
+🏆 Reward=-12472.0003 | Track=4000.000 Δu=0.000 Slack=8472.000 Energy=0.000 Growth=0.000
+
+────────────────────────────────────────────
+⏱ [STEP 005] t=1761887383.43 (Δt=5.0s)
+🌡  Temp=0.0°C  💧Hum=0.0%  ☁️CO₂=0ppm  💡Light=0.0lx
+🌞  Rad=0W/m²   🌬OutT=15.0°C  💧OutH=50%
+⚙️  u_opt → FAN=0.00 | HEATER=0.00 | LED=0.17
+🏆 Reward = -12472.0003
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0     0.036   254   3.6e+02     1     0.047   257         0  
+    1     0  -0.00013   6.8e-10   300   1.1e-09   129     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.16666662831755377, 'timestamp': 1761887388.4528198}
+🏆 Reward=-12472.0003 | Track=4000.000 Δu=0.000 Slack=8472.000 Energy=0.000 Growth=0.000
+
+────────────────────────────────────────────
+⏱ [STEP 006] t=1761887388.44 (Δt=5.0s)
+🌡  Temp=0.0°C  💧Hum=0.0%  ☁️CO₂=0ppm  💡Light=0.0lx
+🌞  Rad=0W/m²   🌬OutT=15.0°C  💧OutH=50%
+⚙️  u_opt → FAN=0.00 | HEATER=0.00 | LED=0.17
+🏆 Reward = -12472.0003
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   2.2e-09   254   3.6e+02     1     0.047   257         0  
+    1     0   2.1e-09   1.2e-09   286   9.7e-10   129     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.16666662831757842, 'timestamp': 1761887393.4678078}
+🏆 Reward=-12472.0003 | Track=4000.000 Δu=0.000 Slack=8472.000 Energy=0.000 Growth=0.000
+
+────────────────────────────────────────────
+⏱ [STEP 007] t=1761887393.46 (Δt=5.0s)
+🌡  Temp=0.0°C  💧Hum=0.0%  ☁️CO₂=0ppm  💡Light=0.0lx
+🌞  Rad=0W/m²   🌬OutT=15.0°C  💧OutH=50%
+⚙️  u_opt → FAN=0.00 | HEATER=0.00 | LED=0.17
+🏆 Reward = -12472.0003
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   1.2e-09   286   3.6e+02     1     0.047   257         0  
+    1     0  -1.3e-09   6.7e-10   272   9.4e-10   102     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.16666662831755155, 'timestamp': 1761887398.480869}
+🏆 Reward=-12472.0003 | Track=4000.000 Δu=0.000 Slack=8472.000 Energy=0.000 Growth=0.000
+
+────────────────────────────────────────────
+⏱ [STEP 008] t=1761887398.47 (Δt=5.0s)
+🌡  Temp=0.0°C  💧Hum=0.0%  ☁️CO₂=0ppm  💡Light=0.0lx
+🌞  Rad=0W/m²   🌬OutT=15.0°C  💧OutH=50%
+⚙️  u_opt → FAN=0.00 | HEATER=0.00 | LED=0.17
+🏆 Reward = -12472.0003
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   6.7e-10   272   3.6e+02     1     0.047   257         0  
+    1     0   2.7e-09   7.7e-10   286   9.7e-10   129     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.16666662831755155, 'timestamp': 1761887403.4931881}
+🏆 Reward=-12472.0003 | Track=4000.000 Δu=0.000 Slack=8472.000 Energy=0.000 Growth=0.000
+
+────────────────────────────────────────────
+⏱ [STEP 009] t=1761887403.48 (Δt=5.0s)
+🌡  Temp=0.0°C  💧Hum=0.0%  ☁️CO₂=0ppm  💡Light=0.0lx
+🌞  Rad=0W/m²   🌬OutT=15.0°C  💧OutH=50%
+⚙️  u_opt → FAN=0.00 | HEATER=0.00 | LED=0.17
+🏆 Reward = -12472.0003
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   5.8e-10   272   3.6e+02     1     0.047   257         0  
+    1     0    -1e-09   1.1e-09   272   9.4e-10   111     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.16666662831755155, 'timestamp': 1761887408.5148757}
+🏆 Reward=-12472.0003 | Track=4000.000 Δu=0.000 Slack=8472.000 Energy=0.000 Growth=0.000
+
+────────────────────────────────────────────
+⏱ [STEP 010] t=1761887408.49 (Δt=5.0s)
+🌡  Temp=0.0°C  💧Hum=0.0%  ☁️CO₂=0ppm  💡Light=0.0lx
+🌞  Rad=0W/m²   🌬OutT=15.0°C  💧OutH=50%
+⚙️  u_opt → FAN=0.00 | HEATER=0.00 | LED=0.17
+🏆 Reward = -12472.0003
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   5.1e-10   272   3.6e+02     1     0.047   257         0  
+    1     0   8.9e-10     3e-09   258   1.1e-09   105     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.16666662831755155, 'timestamp': 1761887413.5369442}
+🏆 Reward=-12472.0003 | Track=4000.000 Δu=0.000 Slack=8472.000 Energy=0.000 Growth=0.000
+
+────────────────────────────────────────────
+⏱ [STEP 011] t=1761887413.52 (Δt=5.0s)
+🌡  Temp=0.0°C  💧Hum=0.0%  ☁️CO₂=0ppm  💡Light=0.0lx
+🌞  Rad=0W/m²   🌬OutT=15.0°C  💧OutH=50%
+⚙️  u_opt → FAN=0.00 | HEATER=0.00 | LED=0.17
+🏆 Reward = -12472.0003
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0     2e-09   258   3.6e+02     1     0.047   257         0  
+    1     0  -2.1e-10   1.1e-09   272   1.1e-09   129     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.16666662831755155, 'timestamp': 1761887418.5571625}
+🏆 Reward=-12472.0003 | Track=4000.000 Δu=0.000 Slack=8472.000 Energy=0.000 Growth=0.000
+
+────────────────────────────────────────────
+⏱ [STEP 012] t=1761887418.54 (Δt=5.0s)
+🌡  Temp=0.0°C  💧Hum=0.0%  ☁️CO₂=0ppm  💡Light=0.0lx
+🌞  Rad=0W/m²   🌬OutT=15.0°C  💧OutH=50%
+⚙️  u_opt → FAN=0.00 | HEATER=0.00 | LED=0.17
+🏆 Reward = -12472.0003
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   1.1e-09   272   3.6e+02     1     0.047   257         0  
+    1     0  -3.4e-09   7.7e-10   286   1.5e-09   105     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.16666662831755155, 'timestamp': 1761887423.5772872}
+🏆 Reward=-12472.0003 | Track=4000.000 Δu=0.000 Slack=8472.000 Energy=0.000 Growth=0.000
+
+────────────────────────────────────────────
+⏱ [STEP 013] t=1761887423.56 (Δt=5.0s)
+🌡  Temp=0.0°C  💧Hum=0.0%  ☁️CO₂=0ppm  💡Light=0.0lx
+🌞  Rad=0W/m²   🌬OutT=15.0°C  💧OutH=50%
+⚙️  u_opt → FAN=0.00 | HEATER=0.00 | LED=0.17
+🏆 Reward = -12472.0003
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   7.7e-10   286   3.6e+02     1     0.047   257         0  
+    1     0   2.6e-09   1.4e-09   286   1.3e-09   102     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.16666662831755155, 'timestamp': 1761887428.5989757}
+🏆 Reward=-12472.0003 | Track=4000.000 Δu=0.000 Slack=8472.000 Energy=0.000 Growth=0.000
+
+────────────────────────────────────────────
+⏱ [STEP 014] t=1761887428.58 (Δt=5.0s)
+🌡  Temp=0.0°C  💧Hum=0.0%  ☁️CO₂=0ppm  💡Light=0.0lx
+🌞  Rad=0W/m²   🌬OutT=15.0°C  💧OutH=50%
+⚙️  u_opt → FAN=0.00 | HEATER=0.00 | LED=0.17
+🏆 Reward = -12472.0003
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   8.2e-10   258   3.6e+02     1     0.047   257         0  
+    1     0  -1.1e-09     7e-10   272   1.2e-09   120     0.047   257         1  Converged
+MESSAGE(sqpmethod): Convergence achieved after 1 iterations
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.16666662831755155, 'timestamp': 1761887433.6208386}
+🏆 Reward=-12472.0003 | Track=4000.000 Δu=0.000 Slack=8472.000 Energy=0.000 Growth=0.000
+
+────────────────────────────────────────────
+⏱ [STEP 015] t=1761887433.60 (Δt=5.0s)
+🌡  Temp=0.0°C  💧Hum=0.0%  ☁️CO₂=0ppm  💡Light=0.0lx
+🌞  Rad=0W/m²   🌬OutT=15.0°C  💧OutH=50%
+⚙️  u_opt → FAN=0.00 | HEATER=0.00 | LED=0.17
+🏆 Reward = -12472.0003
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0     7e-10   272   3.6e+02     1     0.047   257         0  
+    1     0   1.4e-09   8.6e-10   258   1.6e-09   117     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.16666662831755155, 'timestamp': 1761887438.6341646}
+🏆 Reward=-12472.0003 | Track=4000.000 Δu=0.000 Slack=8472.000 Energy=0.000 Growth=0.000
+
+────────────────────────────────────────────
+⏱ [STEP 016] t=1761887438.62 (Δt=5.0s)
+🌡  Temp=0.0°C  💧Hum=0.0%  ☁️CO₂=0ppm  💡Light=0.0lx
+🌞  Rad=0W/m²   🌬OutT=15.0°C  💧OutH=50%
+⚙️  u_opt → FAN=0.00 | HEATER=0.00 | LED=0.17
+🏆 Reward = -12472.0003
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+ Iter  Sing        fk      |pr|   con      |du|   var     min_R   con  last_tau  Note
+    0     0         0   6.5e-10   258   3.6e+02     1     0.047   257         0  
+    1     0   8.8e-10   8.9e-10   300   7.1e-10   105     0.047   257         1  Converged
+MESSAGE(sqpmethod): Search direction becomes too small without convergence criteria being met.
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.166666628317561, 'timestamp': 1761887443.6454346}
+🏆 Reward=-12472.0003 | Track=4000.000 Δu=0.000 Slack=8472.000 Energy=0.000 Growth=0.000
+
+────────────────────────────────────────────
+⏱ [STEP 017] t=1761887443.64 (Δt=5.0s)
+🌡  Temp=0.0°C  💧Hum=0.0%  ☁️CO₂=0ppm  💡Light=0.0lx
+🌞  Rad=0W/m²   🌬OutT=15.0°C  💧OutH=50%
+⚙️  u_opt → FAN=0.00 | HEATER=0.00 | LED=0.17
+🏆 Reward = -12472.0003
+────────────────────────────────────────────
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
