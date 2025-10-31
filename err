@@ -24,3 +24,40 @@ Exception: CasADi matrices are not iterable by design.
                       Did you mean to iterate over m.nz, with m IM/DM/SX?
                       Did you mean to iterate over horzsplit(m,1)/vertsplit(m,1) with m IM/DM/SX/MX?
 ----
+
+(.venv311) rasp@raspberrypi:~/mpcrl_succed/mpcrl_real $ python main_real_detail.py 
+📝 Logging to logs/rl_mpc_20251031_182848.log
+🚀 Real-world RL-MPC (CasADi) starting...
+✅ MQTT connected → 172.27.148.207:1883
+🟢 MQTT connected successfully, subscribed to {'sensor': 'farmA/esp1/sensor', 'disturbance': 'farmA/esp1/disturbance', 'actuator_control': 'farmA/esp1/actuator/control'}
+📡 Subscribed topics: {'sensor': 'farmA/esp1/sensor', 'disturbance': 'farmA/esp1/disturbance', 'actuator_control': 'farmA/esp1/actuator/control'}
+
+qpOASES -- An Implementation of the Online Active Set Strategy.
+Copyright (C) 2007-2015 by Hans Joachim Ferreau, Andreas Potschka,
+Christian Kirches et al. All rights reserved.
+
+qpOASES is distributed under the terms of the 
+GNU Lesser General Public License 2.1 in the hope that it will be 
+useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+See the GNU Lesser General Public License for more details.
+
+
+qpOASES -- An Implementation of the Online Active Set Strategy.
+Copyright (C) 2007-2015 by Hans Joachim Ferreau, Andreas Potschka,
+Christian Kirches et al. All rights reserved.
+
+qpOASES is distributed under the terms of the 
+GNU Lesser General Public License 2.1 in the hope that it will be 
+useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+See the GNU Lesser General Public License for more details.
+
+⚠️ RL 파라미터 로드 실패: 'LearningMpcCasADi' object has no attribute 'load_theta'
+Traceback (most recent call last):
+  File "/home/rasp/mpcrl_succed/mpcrl_real/main_real_detail.py", line 56, in <module>
+    mpc.set_reference(Tmid=Tmid, Hmid=Hmid, CO2_ref=420.0, L_ref=300.0)
+    ^^^^^^^^^^^^^^^^^
+AttributeError: 'LearningMpcCasADi' object has no attribute 'set_reference'
+
+---
