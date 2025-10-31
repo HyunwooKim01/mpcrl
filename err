@@ -1,21 +1,36 @@
 (.venv311) rasp@raspberrypi:~/mpcrl_succed/mpcrl_real $ python main_real_detail.py 
-📝 Logging to logs/rl_mpc_20251031_181340.log
-🚀 Real-world RL-MPC (CasADi) starting...
-✅ MQTT connected → 172.27.148.207:1883
-🟢 MQTT connected successfully, subscribed to {'sensor': 'farmA/esp1/sensor', 'disturbance': 'farmA/esp1/disturbance', 'actuator_control': 'farmA/esp1/actuator/control'}
-📩 MQTT farmA/esp1/sensor : {'temp_in': 15.9, 'hum_in': 79.0, 'co2_in': 442.0, 'light_in': 12.8, 'timestamp': 1761902024.9957857}
-📩 MQTT farmA/esp1/disturbance : {'solar_rad': 16, 'co2_out': 422, 'temp_out': 13.9, 'hum_out': 84, 'timestamp': 1761902024.995772}
+📝 Logging to logs/mpc_20251031_190926.log
+🚀 Real-world MPC (CasADi) starting...
+❌ MQTT connection failed: timed out
+💡 Mosquitto가 실행 중인지 확인하세요.
 📡 Subscribed topics: {'sensor': 'farmA/esp1/sensor', 'disturbance': 'farmA/esp1/disturbance', 'actuator_control': 'farmA/esp1/actuator/control'}
 Traceback (most recent call last):
-  File "/home/rasp/mpcrl_succed/mpcrl_real/main_real_detail.py", line 45, in <module>
+  File "/home/rasp/mpcrl_succed/mpcrl_real/main_real_detail.py", line 44, in <module>
     mpc = LearningMpcCasADi(ts=env.sample_time, N=24)
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/rasp/mpcrl_succed/mpcrl_real/learning_real_detail.py", line 33, in __init__
+  File "/home/rasp/mpcrl_succed/mpcrl_real/learning_real_detail.py", line 46, in __init__
     self._build_mpc()
-  File "/home/rasp/mpcrl_succed/mpcrl_real/learning_real_detail.py", line 63, in _build_mpc
-    x_next = x[:,k] + self.ts * f_dyn(x[:,k], u[:,k], d)
-                                ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/rasp/mpcrl_succed/mpcrl_real/learning_real_detail.py", line 49, in f_dyn
+    ^^^^^^^^^^^^^^^
+AttributeError: 'LearningMpcCasADi' object has no attribute '_build_mpc'
+
+---
+
+(.venv311) rasp@raspberrypi:~/mpcrl_succed/mpcrl_real $ python main_real_detail.py 
+📝 Logging to logs/mpc_20251031_191613.log
+🚀 Real-world MPC (CasADi) starting...
+❌ MQTT connection failed: timed out
+💡 Mosquitto가 실행 중인지 확인하세요.
+📡 Subscribed topics: {'sensor': 'farmA/esp1/sensor', 'disturbance': 'farmA/esp1/disturbance', 'actuator_control': 'farmA/esp1/actuator/control'}
+Traceback (most recent call last):
+  File "/home/rasp/mpcrl_succed/mpcrl_real/main_real_detail.py", line 44, in <module>
+    mpc = LearningMpcCasADi(ts=env.sample_time, N=24)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rasp/mpcrl_succed/mpcrl_real/learning_real_detail.py", line 45, in __init__
+    self._build_mpc()
+  File "/home/rasp/mpcrl_succed/mpcrl_real/learning_real_detail.py", line 77, in _build_mpc
+    x_next = x[:, k] + self.ts * f_dyn(x[:, k], u[:, k], d)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rasp/mpcrl_succed/mpcrl_real/learning_real_detail.py", line 62, in f_dyn
     temp, hum, co2, light = xk
     ^^^^^^^^^^^^^^^^^^^^^
   File "/home/rasp/checkjin/.venv311/lib/python3.11/site-packages/casadi/casadi.py", line 16299, in __iter__
@@ -23,99 +38,3 @@ Traceback (most recent call last):
 Exception: CasADi matrices are not iterable by design.
                       Did you mean to iterate over m.nz, with m IM/DM/SX?
                       Did you mean to iterate over horzsplit(m,1)/vertsplit(m,1) with m IM/DM/SX/MX?
-----
-
-(.venv311) rasp@raspberrypi:~/mpcrl_succed/mpcrl_real $ python main_real_detail.py 
-📝 Logging to logs/rl_mpc_20251031_182848.log
-🚀 Real-world RL-MPC (CasADi) starting...
-✅ MQTT connected → 172.27.148.207:1883
-🟢 MQTT connected successfully, subscribed to {'sensor': 'farmA/esp1/sensor', 'disturbance': 'farmA/esp1/disturbance', 'actuator_control': 'farmA/esp1/actuator/control'}
-📡 Subscribed topics: {'sensor': 'farmA/esp1/sensor', 'disturbance': 'farmA/esp1/disturbance', 'actuator_control': 'farmA/esp1/actuator/control'}
-
-qpOASES -- An Implementation of the Online Active Set Strategy.
-Copyright (C) 2007-2015 by Hans Joachim Ferreau, Andreas Potschka,
-Christian Kirches et al. All rights reserved.
-
-qpOASES is distributed under the terms of the 
-GNU Lesser General Public License 2.1 in the hope that it will be 
-useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
-See the GNU Lesser General Public License for more details.
-
-
-qpOASES -- An Implementation of the Online Active Set Strategy.
-Copyright (C) 2007-2015 by Hans Joachim Ferreau, Andreas Potschka,
-Christian Kirches et al. All rights reserved.
-
-qpOASES is distributed under the terms of the 
-GNU Lesser General Public License 2.1 in the hope that it will be 
-useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
-See the GNU Lesser General Public License for more details.
-
-⚠️ RL 파라미터 로드 실패: 'LearningMpcCasADi' object has no attribute 'load_theta'
-Traceback (most recent call last):
-  File "/home/rasp/mpcrl_succed/mpcrl_real/main_real_detail.py", line 56, in <module>
-    mpc.set_reference(Tmid=Tmid, Hmid=Hmid, CO2_ref=420.0, L_ref=300.0)
-    ^^^^^^^^^^^^^^^^^
-AttributeError: 'LearningMpcCasADi' object has no attribute 'set_reference'
-
----
-
-     216   |   5.157459e-07   |   REM CON   83   |     0   |   171   
-     217   |   7.289257e-08   |   ADD CON   83   |     0   |   172   
-     218   |   5.699093e-07   |   REM CON   76   |     0   |   171   
-     219   |   6.521009e-08   |   ADD CON   76   |     0   |   172   
-     220   |   6.297419e-07   |   REM CON   69   |     0   |   171   
-     221   |   5.833519e-08   |   ADD CON   69   |     0   |   172   
-     222   |   6.958346e-07   |   REM CON   62   |     0   |   171   
-     223   |   5.218317e-08   |   ADD CON   62   |     0   |   172   
-^X     224   |   7.688400e-07   |   REM CON   55   |     0   |   171   
-     225   |   4.667818e-08   |   ADD CON   55   |     0   |   172   
-     226   |   8.494782e-07   |   REM CON   48   |     0   |   171   
-     227   |   4.175238e-08   |   ADD CON   48   |     0   |   172   
-     228   |   9.385441e-07   |   REM CON   41   |     0   |   171   
-     229   |   3.734494e-08   |   ADD CON   41   |     0   |   172   
-     230   |   1.036915e-06   |   REM CON   34   |     0   |   171   
-     231   |   3.340146e-08   |   ADD CON   34   |     0   |   172   
-     232   |   6.157979e-08   |   REM CON   88   |     0   |   171   
-     233   |   6.981713e-09   |   ADD CON   88   |     0   |   172   
-     234   |   1.085282e-06   |   REM CON   27   |     0   |   171   
-     235   |   2.987323e-08   |   ADD CON   27   |     0   |   172   
-     236   |   1.265544e-06   |   REM CON   20   |     0   |   171   
-     237   |   2.671663e-08   |   ADD CON   20   |     0   |   172   
-     238   |   1.398050e-06   |   REM CON   13   |     0   |   171   
-     239   |   2.389261e-08   |   ADD CON   13   |     0   |   172   
-     240   |   1.544378e-06   |   REM CON    6   |     0   |   171   
-     241   |   2.136623e-08   |   ADD CON    6   |     0   |   172   
-     242   |   8.255168e-07   |   REM CON   57   |     0   |   171   
-     243   |   1.031426e-07   |   ADD CON   57   |     0   |   172   
-     244   |   8.189993e-07   |   REM CON    2   |     0   |   171   
-     245   |   1.915907e-08   |   ADD CON    2   |     0   |   172   
-     246   |   6.520174e-06   |   REM CON   81   |     0   |   171   
-     247   |   1.640395e-08   |   ADD CON   81   |     0   |   172   
-     248   |   6.810007e-01   |   REM CON   45   |     0   |   171   
-     249   |   8.150595e-03   |   ADD CON   45   |     0   |   172   
-     250   |   1.384216e-01   |   REM CON   38   |     0   |   171   
-     251   |   9.503937e-03   |   ADD CON   38   |     0   |   172   
-     252   |   2.132161e-01   |   REM CON   31   |     0   |   171   
-     253   |   1.115321e-02   |   ADD CON   31   |     0   |   172   
-     254   |   3.643098e-01   |   REM CON   24   |     0   |   171   
-     255   |   1.320948e-02   |   ADD CON   24   |     0   |   172   
-     256   |   1.715304e-01   |   REM CON   10   |     0   |   171   
-     257   |   1.797570e-02   |   ADD CON   10   |     0   |   172   
-     258   |   1.000000e+00   |    QP SOLVED     |     0   |   172   
-   9   8.728859e+14  2.13e-03  1.46e+05  8.31e+08       -  3F - 
-
-
-####################   qpOASES  --  QP NO.  10   #####################
-
-    Iter   |    StepLength    |       Info       |   nFX   |   nAC    
- ----------+------------------+------------------+---------+--------- 
-       0   |   4.999191e-01   |   REM CON    6   |     0   |   171   
-       1   |   2.348313e-17   |   ADD CON    6   |     0   |   172   
-       2   |   1.601230e-07   |   REM CON    8   |     0   |   171   
-       3   |   1.089794e-09   |   ADD CON    8   |     0   |   172   
-       4   |   3.657100e-08   |   REM CON   15   |     0   |   171   
-       5   |   1.269473e-09   |   ADD CON   15   |     0   |   172   
-       6   |   5.271966e-08   |   REM CON   22   |     0   |   171  
