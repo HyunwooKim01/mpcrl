@@ -217,7 +217,13 @@ def main():
     # 3) θ 로드 & MPC 적용
     theta = load_theta(args.theta_path)
     apply_theta_to_mpc(mpc, theta)
-    print(f"🔧 θ loaded & applied: {json.dumps(theta)}")
+    # 3) θ 로드 & MPC 적용
+    theta = load_theta(args.theta_path)
+    apply_theta_to_mpc(mpc, theta)
+    # numpy 배열이 섞여 있을 수 있으므로 안전하게 출력
+    theta_safe = {k: (v.tolist() if hasattr(v, "tolist") else v) for k, v in theta.items()}
+    print("🔧 θ loaded & applied:", json.dumps(theta_safe, indent=2, ensure_ascii=False))
+
 
     # 4) 루프 준비
     u_prev = np.zeros(3, dtype=float)
