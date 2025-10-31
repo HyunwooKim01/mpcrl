@@ -9,9 +9,9 @@ import pickle
 
 class LearningMpcCasADi:
     """CasADi 기반 MPC (Raspberry Pi 실시간용)
-    상태 x=[temp_in,hum_in,co2_in,light_in]
-    제어 u=[fan,heater,led]
-    외란 d=[solar_rad,co2_out,temp_out,hum_out]
+    상태 x=[temp_in, hum_in, co2_in, light_in]
+    제어 u=[fan, heater, led]
+    외란 d=[solar_rad, co2_out, temp_out, hum_out]
     논문식 (18)~(21) 기반 + RL 파라미터 적용 구조
     """
 
@@ -42,6 +42,7 @@ class LearningMpcCasADi:
         self.S = np.diag(S)
         self.alpha_growth = alpha_growth
 
+        # MPC 초기화
         self._build_mpc()
 
     # ─────────────────────────────────────────────
@@ -59,9 +60,20 @@ class LearningMpcCasADi:
 
         # --- Dynamics ---
         def f_dyn(xk, uk, dk):
-            temp, hum, co2, light = xk
-            fan, heater, led = uk
-            rad, co2_out, temp_out, hum_out = dk
+            # ✅ MX 타입은 언패킹 불가 → 인덱싱으로 접근
+            temp = xk[0]
+            hum = xk[1]
+            co2 = xk[2]
+            light = xk[3]
+
+            fan = uk[0]
+            heater = uk[1]
+            led = uk[2]
+
+            rad = dk[0]
+            co2_out = dk[1]
+            temp_out = dk[2]
+            hum_out = dk[3]
 
             dtemp = 0.015 * (temp_out - temp) + 0.1 * heater - 0.07 * fan
             dhum = 0.01 * (hum_out - hum) - 0.06 * fan + 0.015 * heater
@@ -87,27 +99,30 @@ class LearningMpcCasADi:
             J_du = cs.mtimes([du[:, k].T, self.R, du[:, k]])
             J_energy = cs.mtimes([u[:, k].T, self.S, u[:, k]])
 
-            T, H, L = x[0, k], x[1, k], x[3, k]
+            T = x[0, k]
+            H = x[1, k]
+            L = x[3, k]
             Tmin, Tmax = 18.0, 28.0
             Hmin, Hmax = 40.0, 80.0
             vT = cs.fmax(0, Tmin - T) + cs.fmax(0, T - Tmax)
             vH = cs.fmax(0, Hmin - H) + cs.fmax(0, H - Hmax)
-            J_slack = 3.0 * (vT * vT + vH * vH)
+            J_slack = 3.0 * (vT**2 + vH**2)
 
             gT = cs.exp(-0.5 * cs.power((T - 25.0) / 2.5, 2))
             gH = cs.exp(-0.5 * cs.power((H - 60.0) / 8.0, 2))
             gL = cs.tanh(L / 500.0)
             growth = gT * gH * gL
 
-            # 전체 cost 구성
             J += J_track + J_du + J_energy + J_slack - self.alpha_growth * growth
 
         # terminal cost
         J += 0.5 * cs.mtimes([(x[:, N] - r).T, self.Q, (x[:, N] - r)])
 
-        w = cs.vertcat(cs.reshape(x, -1, 1),
-                       cs.reshape(u, -1, 1),
-                       cs.reshape(du, -1, 1))
+        w = cs.vertcat(
+            cs.reshape(x, -1, 1),
+            cs.reshape(u, -1, 1),
+            cs.reshape(du, -1, 1),
+        )
         g = cs.vertcat(*g)
         p = cs.vertcat(x0, d, u_prev, r)
 
