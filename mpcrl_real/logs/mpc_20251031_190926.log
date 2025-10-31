@@ -1,0 +1,5 @@
+📝 Logging to logs/mpc_20251031_190926.log
+🚀 Real-world MPC (CasADi) starting...
+❌ MQTT connection failed: timed out
+💡 Mosquitto가 실행 중인지 확인하세요.
+📡 Subscribed topics: {'sensor': 'farmA/esp1/sensor', 'disturbance': 'farmA/esp1/disturbance', 'actuator_control': 'farmA/esp1/actuator/control'}
