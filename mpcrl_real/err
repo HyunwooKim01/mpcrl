@@ -1,0 +1,31 @@
+(.venv311) rasp@raspberrypi:~/mpcrl_succed/mpcrl_real $ python q_learning_greenhouse.py 
+✅ MQTT connected → 172.27.148.207:1883
+🟢 MQTT connected successfully, subscribed to {'sensor': 'farmA/esp1/sensor', 'disturbance': 'farmA/esp1/disturbance', 'actuator_control': 'farmA/esp1/actuator/control'}
+📡 Subscribed topics: {'sensor': 'farmA/esp1/sensor', 'disturbance': 'farmA/esp1/disturbance', 'actuator_control': 'farmA/esp1/actuator/control'}
+-------------------------------------------
+This is casadi::QRQP
+Number of variables:                             340
+Number of constraints:                           364
+Number of nonzeros in H:                         817
+Number of nonzeros in A:                         913
+Number of nonzeros in KKT:                      3106
+Number of nonzeros in QR(V):                    3892
+Number of nonzeros in QR(R):                    7769
+Traceback (most recent call last):
+  File "/home/rasp/mpcrl_succed/mpcrl_real/q_learning_greenhouse.py", line 299, in <module>
+    main()
+  File "/home/rasp/mpcrl_succed/mpcrl_real/q_learning_greenhouse.py", line 220, in main
+    print(f"🔧 θ loaded & applied: {json.dumps(theta)}")
+                                    ^^^^^^^^^^^^^^^^^
+  File "/home/rasp/.pyenv/versions/3.11.9/lib/python3.11/json/__init__.py", line 231, in dumps
+    return _default_encoder.encode(obj)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rasp/.pyenv/versions/3.11.9/lib/python3.11/json/encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rasp/.pyenv/versions/3.11.9/lib/python3.11/json/encoder.py", line 258, in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+  File "/home/rasp/.pyenv/versions/3.11.9/lib/python3.11/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type ndarray is not JSON serializable
