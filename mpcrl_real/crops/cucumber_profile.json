@@ -1,6 +1,8 @@
 {
   "crop_name": "cucumber",
   "description": "오이 생육 최적 환경 설정",
+  "target_temp": [25.0, 29.0],
+  "target_humidity": [65.0, 85.0],
   "targets": {
     "biomass": 0.0043,
     "humidity": 0.75,

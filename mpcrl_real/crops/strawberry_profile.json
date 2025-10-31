@@ -1,6 +1,8 @@
 {
   "crop_name": "strawberry",
   "description": "딸기 생육 최적 환경 설정",
+  "target_temp": [20.0, 24.0],
+  "target_humidity": [60.0, 80.0],
   "targets": {
     "temperature": 22.0,
     "humidity": 0.75,
@@ -20,5 +22,3 @@
     "delta": 0.02
   }
 }
-
-

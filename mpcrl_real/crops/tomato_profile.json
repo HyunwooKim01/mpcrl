@@ -1,6 +1,8 @@
 {
   "crop_name": "tomato",
   "description": "토마토 생육 최적 환경 설정",
+  "target_temp": [24.0, 28.0],
+  "target_humidity": [50.0, 70.0],
   "targets": {
     "temperature": 26.0,
     "humidity": 0.60,
@@ -20,5 +22,3 @@
     "delta": 0.015
   }
 }
-
-

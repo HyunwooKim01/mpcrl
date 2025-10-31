@@ -1,6 +1,8 @@
 {
   "crop_name": "lettuce",
   "description": "상추 생육 최적 환경 설정",
+  "target_temp": [18.0, 22.0],
+  "target_humidity": [50.0, 70.0],
   "targets": {
     "temperature": 25.0,
     "humidity": 0.65,
@@ -20,5 +22,3 @@
     "delta": 0.01
   }
 }
-
-
