@@ -1,37 +1,57 @@
-(.venv311) rasp@raspberrypi:~/mpcrl_succed/mpcrl_real $ python q_learning_greenhouse.py 
-✅ MQTT connected → 172.27.148.207:1883
-🟢 MQTT connected successfully, subscribed to {'sensor': 'farmA/esp1/sensor', 'disturbance': 'farmA/esp1/disturbance', 'actuator_control': 'farmA/esp1/actuator/control'}
-📡 Subscribed topics: {'sensor': 'farmA/esp1/sensor', 'disturbance': 'farmA/esp1/disturbance', 'actuator_control': 'farmA/esp1/actuator/control'}
--------------------------------------------
-This is casadi::QRQP
-Number of variables:                             340
-Number of constraints:                           364
-Number of nonzeros in H:                         817
-Number of nonzeros in A:                         913
-Number of nonzeros in KKT:                      3106
-Number of nonzeros in QR(V):                    3892
-Number of nonzeros in QR(R):                    7769
-Traceback (most recent call last):
-  File "/home/rasp/mpcrl_succed/mpcrl_real/q_learning_greenhouse.py", line 305, in <module>
-    main()
-  File "/home/rasp/mpcrl_succed/mpcrl_real/q_learning_greenhouse.py", line 225, in main
-    print("🔧 θ loaded & applied:", json.dumps(theta_safe, indent=2, ensure_ascii=False))
-                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/rasp/.pyenv/versions/3.11.9/lib/python3.11/json/__init__.py", line 238, in dumps
-    **kw).encode(obj)
-          ^^^^^^^^^^^
-  File "/home/rasp/.pyenv/versions/3.11.9/lib/python3.11/json/encoder.py", line 202, in encode
-    chunks = list(chunks)
-             ^^^^^^^^^^^^
-  File "/home/rasp/.pyenv/versions/3.11.9/lib/python3.11/json/encoder.py", line 432, in _iterencode
-    yield from _iterencode_dict(o, _current_indent_level)
-  File "/home/rasp/.pyenv/versions/3.11.9/lib/python3.11/json/encoder.py", line 406, in _iterencode_dict
-    yield from chunks
-  File "/home/rasp/.pyenv/versions/3.11.9/lib/python3.11/json/encoder.py", line 406, in _iterencode_dict
-    yield from chunks
-  File "/home/rasp/.pyenv/versions/3.11.9/lib/python3.11/json/encoder.py", line 439, in _iterencode
-    o = _default(o)
-        ^^^^^^^^^^^
-  File "/home/rasp/.pyenv/versions/3.11.9/lib/python3.11/json/encoder.py", line 180, in default
-    raise TypeError(f'Object of type {o.__class__.__name__} '
-TypeError: Object of type ndarray is not JSON serializable
+  ],
+    "p_27": [
+      [
+        0.9079375924343389
+      ],
+      [
+        0.9051569704527487
+      ],
+      [
+        0.9019190610045598
+      ],
+      [
+        0.8984397830453044
+      ],
+      [
+        0.8952321215985204
+      ],
+      [
+        0.8925439163400395
+      ],
+      [
+        0.8901346461840103
+      ],
+      [
+        0.8882314053906523
+      ],
+      [
+        0.8866375240304677
+      ],
+      [
+        0.8852796030432057
+      ]
+    ]
+  }
+}
+🚀 Start real Q-learning loop (no simulator)
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+[WARN] CasADi solver failed: Error in Function::call for 'solver' [Sqpmethod] at .../casadi/core/function.cpp:1432:
+Error in Function::call for 'solver' [Sqpmethod] at .../casadi/core/function.cpp:361:
+.../casadi/core/function_internal.hpp:1649: Input 4 (lbg) has mismatching shape. Got 172-by-1. Allowed dimensions, in general, are:
+ - The input dimension N-by-M (here 364-by-1)
+ - A scalar, i.e. 1-by-1
+ - M-by-N if N=1 or M=1 (i.e. a transposed vector)
+ - N-by-M1 if K*M1=M for some K (argument repeated horizontally)
+ - N-by-P*M, indicating evaluation with multiple arguments (P must be a multiple of 1 for consistency with previous inputs)
+⚙️ u=[0. 0. 0.]
+📤 Sent actuator command → {'fan': 0.0, 'heater': 0.0, 'led': 0.0, 'timestamp': 1761911416.7821968}
+^C
+🛑 Stopping... (saving θ)
+[WARN] Sensor payload stale (> timeout).
+[WARN] Disturbance payload stale (> timeout).
+🏆 r=-18120.0000 | J_track=4000.0000 | dU=0.0000 | slack=14120.0000 | energy=0.0000 | growth=0.0000
+💾 θ saved → trained_theta.pkl
+✅ Exit cleanly.
+(.venv311) rasp@raspberrypi:~/mpcrl_succed/mpcrl_real $ 
+
