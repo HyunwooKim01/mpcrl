@@ -46,13 +46,25 @@ class LearningMpcCasADi:
         r = cs.MX.sym("r", nx)
 
         def f_dyn(xk, uk, dk):
-            temp, hum, co2, light = xk
-            fan, heater, led = uk
-            rad, co2_out, temp_out, hum_out = dk
-            dtemp = 0.015*(temp_out-temp) + 0.1*heater - 0.07*fan
-            dhum = 0.01*(hum_out-hum) - 0.06*fan + 0.015*heater
-            dco2 = 0.002*(co2_out-co2)
-            dlight = -0.05*light + 1.2*led*300.0 + 0.15*rad
+            # unpack states properly
+            temp  = xk[0]
+            hum   = xk[1]
+            co2   = xk[2]
+            light = xk[3]
+
+            fan, heater, led = uk[0], uk[1], uk[2]
+
+            temp_out = dk[0]
+            hum_out  = dk[1]
+            co2_out  = dk[2]
+            solar_rad = dk[3]
+
+            # simple greenhouse dynamics (linearized)
+            dtemp = -0.1 * fan + 0.1 * heater + 0.01 * (solar_rad - temp_out)
+            dhum  = -0.05 * fan + 0.02 * heater + 0.01 * (hum_out - hum)
+            dco2  = -0.01 * fan + 0.05 * co2_out - 0.02 * co2
+            dlight = led * 0.1
+
             return cs.vertcat(dtemp, dhum, dco2, dlight)
 
         g = []
