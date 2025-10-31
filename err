@@ -1,0 +1,26 @@
+(.venv311) rasp@raspberrypi:~/mpcrl_succed/mpcrl_real $ python main_real_detail.py 
+📝 Logging to logs/rl_mpc_20251031_181340.log
+🚀 Real-world RL-MPC (CasADi) starting...
+✅ MQTT connected → 172.27.148.207:1883
+🟢 MQTT connected successfully, subscribed to {'sensor': 'farmA/esp1/sensor', 'disturbance': 'farmA/esp1/disturbance', 'actuator_control': 'farmA/esp1/actuator/control'}
+📩 MQTT farmA/esp1/sensor : {'temp_in': 15.9, 'hum_in': 79.0, 'co2_in': 442.0, 'light_in': 12.8, 'timestamp': 1761902024.9957857}
+📩 MQTT farmA/esp1/disturbance : {'solar_rad': 16, 'co2_out': 422, 'temp_out': 13.9, 'hum_out': 84, 'timestamp': 1761902024.995772}
+📡 Subscribed topics: {'sensor': 'farmA/esp1/sensor', 'disturbance': 'farmA/esp1/disturbance', 'actuator_control': 'farmA/esp1/actuator/control'}
+Traceback (most recent call last):
+  File "/home/rasp/mpcrl_succed/mpcrl_real/main_real_detail.py", line 45, in <module>
+    mpc = LearningMpcCasADi(ts=env.sample_time, N=24)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rasp/mpcrl_succed/mpcrl_real/learning_real_detail.py", line 33, in __init__
+    self._build_mpc()
+  File "/home/rasp/mpcrl_succed/mpcrl_real/learning_real_detail.py", line 63, in _build_mpc
+    x_next = x[:,k] + self.ts * f_dyn(x[:,k], u[:,k], d)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rasp/mpcrl_succed/mpcrl_real/learning_real_detail.py", line 49, in f_dyn
+    temp, hum, co2, light = xk
+    ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rasp/checkjin/.venv311/lib/python3.11/site-packages/casadi/casadi.py", line 16299, in __iter__
+    raise Exception("""CasADi matrices are not iterable by design.
+Exception: CasADi matrices are not iterable by design.
+                      Did you mean to iterate over m.nz, with m IM/DM/SX?
+                      Did you mean to iterate over horzsplit(m,1)/vertsplit(m,1) with m IM/DM/SX/MX?
+----
