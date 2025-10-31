@@ -17,7 +17,7 @@ import paho.mqtt.client as mqtt
 # ───────────────────────────────────────────────────────
 @dataclass
 class EnvConfig:
-    broker_host: str = "172.27.148.207"
+    broker_host: str = "211.106.231.24"
     broker_port: int = 1883
     farm_id: str = "farmA"
     esp_id: str = "esp1"
@@ -49,20 +49,8 @@ class RealEnvironment:
 
         self._lock = threading.RLock()
         now = time.time()
-        self._sensor = {
-            "temp_in": 0.0,
-            "hum_in": 0.0,
-            "co2_in": 0.0,
-            "light_in": 0.0,
-            "timestamp": now,
-        }
-        self._dist = {
-            "solar_rad": 0.0,
-            "co2_out": 420.0,
-            "temp_out": 15.0,
-            "hum_out": 50.0,
-            "timestamp": now,
-        }
+        self._sensor = {"temp_in": 0.0, "hum_in": 0.0, "co2_in": 0.0, "light_in": 0.0, "timestamp": now}
+        self._dist = {"solar_rad": 0.0, "co2_out": 420.0, "temp_out": 15.0, "hum_out": 50.0, "timestamp": now}
 
         self.crop = self._load_crop_profile(self.cfg.crop_profile_path)
 
@@ -140,14 +128,8 @@ class RealEnvironment:
         if now - w["timestamp"] > self.cfg.sensor_timeout:
             print("[WARN] Disturbance payload stale (> timeout).")
 
-        x = np.array(
-            [s["temp_in"], s["hum_in"], s["co2_in"], s["light_in"]],
-            dtype=float,
-        )
-        d = np.array(
-            [w["solar_rad"], w["co2_out"], w["temp_out"], w["hum_out"]],
-            dtype=float,
-        )
+        x = np.array([s["temp_in"], s["hum_in"], s["co2_in"], s["light_in"]], dtype=float)
+        d = np.array([w["solar_rad"], w["co2_out"], w["temp_out"], w["hum_out"]], dtype=float)
         return x, d
 
     def send_actuators(self, u_opt: np.ndarray) -> None:
@@ -165,3 +147,63 @@ class RealEnvironment:
                 return json.load(f)
         except Exception:
             return {"target_temp": [18.0, 22.0], "target_humidity": [50.0, 70.0]}
+
+    # ──────────────────────────────────────────────
+    # RL 보상 계산 (논문 식 (18)~(21) 단순화 버전)
+    # ──────────────────────────────────────────────
+    def compute_reward(self, x: np.ndarray, u_opt: np.ndarray, u_prev: np.ndarray | None = None, J_mpc: float | None = None) -> float:
+        """
+        논문식 (18)~(21)에 맞춘 보상 계산:
+        r = -J_mpc - Q*오차^2 - R*Δu^2 - S*제약위반^2 - c_energy*u^2 + c_growth*G
+        """
+        temp, hum, co2, light = x
+        prof = self.crop
+        Tmin, Tmax = prof.get("target_temp", [18.0, 22.0])
+        Hmin, Hmax = prof.get("target_humidity", [50.0, 70.0])
+        Tref, Href = np.mean([Tmin, Tmax]), np.mean([Hmin, Hmax])
+
+        # --- 가중치 (논문 대응) ---
+        Q_temp, Q_hum = 1.0, 1.0
+        R_u, S_slack = 0.1, 5.0
+        c_energy, c_growth = 0.05, 1.0
+
+        # --- 제어 입력 ---
+        fan, heater, led = [float(np.clip(u, 0, 1)) for u in u_opt]
+        if u_prev is None:
+            u_prev = np.zeros_like(u_opt)
+        du = u_opt - u_prev
+
+        # --- 오차 항 (y - y_ref)^2 ---
+        err_T = (temp - Tref) ** 2
+        err_H = (hum - Href) ** 2
+        J_track = Q_temp * err_T + Q_hum * err_H
+
+        # --- 제어 변화율 항 ---
+        J_delta = R_u * np.sum(du**2)
+
+        # --- 에너지 항 ---
+        J_energy = c_energy * (fan**2 + heater**2)
+
+        # --- 제약 위반(slack) ---
+        vT = max(0, Tmin - temp) + max(0, temp - Tmax)
+        vH = max(0, Hmin - hum) + max(0, hum - Hmax)
+        J_slack = S_slack * (vT**2 + vH**2)
+
+        # --- 성장 기여항 ---
+        G_temp = np.exp(-0.5 * ((temp - 25.0) / 2.5) ** 2)
+        G_hum  = np.exp(-0.5 * ((hum - 60.0) / 8.0) ** 2)
+        G_light = np.tanh(light / 500.0)
+        growth = G_temp * G_hum * G_light
+
+        # --- 최종 보상 (논문 구조) ---
+        reward = (
+            - (J_track + J_delta + J_slack)
+            - J_energy
+            + c_growth * growth
+        )
+        if J_mpc is not None:
+            reward += -float(J_mpc)
+
+        print(f"🏆 r={reward:.4f} | J_track={J_track:.4f} | dU={J_delta:.4f} | slack={J_slack:.4f} | energy={J_energy:.4f} | growth={growth:.4f}")
+        return float(reward)
+
