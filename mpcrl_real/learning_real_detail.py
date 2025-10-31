@@ -6,10 +6,11 @@ import numpy as np
 import casadi as cs
 import pickle
 import torch
+import os
 
 class LearningMpcCasADi:
     def __init__(self, ts: float = 5.0, N: int = 24, **kwargs):
-        # 기존 초기화 동일
+        # 기본 설정
         self.ts = ts
         self.N = N
         self._nx, self._nu = 4, 3
@@ -29,11 +30,11 @@ class LearningMpcCasADi:
         self.S = np.diag([0.2, 0.3, 0.3])
         self.alpha_growth = 1.0
 
-        # MPC 모델 설정 (CasADi)
+        # MPC 모델 구성
         self._build_mpc()
 
     # ─────────────────────────────
-    # MPC 모델 구축 (기존 그대로)
+    # 🔧 MPC 모델 구축
     # ─────────────────────────────
     def _build_mpc(self):
         nx, nu, nd, N = self._nx, self._nu, 4, self.N
@@ -45,8 +46,8 @@ class LearningMpcCasADi:
         u_prev = cs.MX.sym("u_prev", nu)
         r = cs.MX.sym("r", nx)
 
+        # ────── 단순화된 온실 동역학 ──────
         def f_dyn(xk, uk, dk):
-            # unpack states properly
             temp  = xk[0]
             hum   = xk[1]
             co2   = xk[2]
@@ -59,12 +60,10 @@ class LearningMpcCasADi:
             co2_out  = dk[2]
             solar_rad = dk[3]
 
-            # simple greenhouse dynamics (linearized)
             dtemp = -0.1 * fan + 0.1 * heater + 0.01 * (solar_rad - temp_out)
             dhum  = -0.05 * fan + 0.02 * heater + 0.01 * (hum_out - hum)
             dco2  = -0.01 * fan + 0.05 * co2_out - 0.02 * co2
             dlight = led * 0.1
-
             return cs.vertcat(dtemp, dhum, dco2, dlight)
 
         g = []
@@ -79,6 +78,7 @@ class LearningMpcCasADi:
             else:
                 g.append(du[:,k] - (u[:,k]-u[:,k-1]))
 
+            # 성장 및 페널티 계산
             T, H, L = x[0,k], x[1,k], x[3,k]
             gT = cs.exp(-0.5 * ((T-25.0)/2.5)**2)
             gH = cs.exp(-0.5 * ((H-60.0)/8.0)**2)
@@ -106,7 +106,35 @@ class LearningMpcCasADi:
         self.w0 = np.zeros(((nx*(N+1))+(nu*N*2),1))
 
     # ─────────────────────────────
-    # MPC 정책 실행 (보상 반환 포함)
+    # 🧠 RL 파라미터 로드
+    # ─────────────────────────────
+    def load_theta(self, path="trained_theta.pkl"):
+        if not os.path.exists(path):
+            print(f"⚠️ No trained_theta.pkl found at {path}, using default θ values")
+            return
+        try:
+            with open(path, "rb") as f:
+                theta = pickle.load(f)
+            if "Q" in theta: self.Q = np.diag(theta["Q"])
+            if "R" in theta: self.R = np.diag(theta["R"])
+            if "S" in theta: self.S = np.diag(theta["S"])
+            if "alpha_growth" in theta: self.alpha_growth = theta["alpha_growth"]
+            print(f"✅ Loaded trained RL parameters from {path}")
+        except Exception as e:
+            print(f"⚠️ Error loading θ: {e}")
+
+    # ─────────────────────────────
+    # 🎯 Reference 설정
+    # ─────────────────────────────
+    def set_reference(self, Tmid=18.0, Hmid=65.0, CO2_ref=420.0, L_ref=300.0):
+        """Set greenhouse target references."""
+        self.r = np.array([Tmid, Hmid, CO2_ref, L_ref])
+        self.T_ref = Tmid
+        self.H_ref = Hmid
+        print(f"🎯 Reference updated → T={Tmid}°C, H={Hmid}%, CO₂={CO2_ref}, L={L_ref}")
+
+    # ─────────────────────────────
+    # ⚙️ 정책 실행 + 보상 계산
     # ─────────────────────────────
     def policy(self, s: np.ndarray):
         x = np.array(s[:4])
@@ -130,15 +158,13 @@ class LearningMpcCasADi:
         self.u_prev = u_opt.copy()
         self.w0 = w_opt.reshape(-1,1)
 
-        # ─── 보상 계산 (논문 수식 18~21) ───
         reward = self._compute_reward(x, u_opt)
         self.reward_log.append(reward)
-
         print(f"⚙️ u={u_opt.round(3)} | 🏆 reward={reward:.4f}")
         return u_opt, reward
 
     # ─────────────────────────────
-    # 보상 계산 함수 (논문 수식 18~21 대응)
+    # 🧮 보상 계산 (논문 수식 18~21 대응)
     # ─────────────────────────────
     def _compute_reward(self, x, u):
         T, H, CO2, L = x
@@ -154,11 +180,11 @@ class LearningMpcCasADi:
         G_H = np.exp(-0.5*((H-60)/8)**2)
         G_L = np.tanh(L/500)
         growth = G_T*G_H*G_L
-        reward = -(J_track+J_delta+J_slack+J_energy) + 1.0*growth
+        reward = -(J_track+J_delta+J_slack+J_energy) + self.alpha_growth*growth
         return float(reward)
 
     # ─────────────────────────────
-    # RL 파라미터 업데이트 (Q-learning 방식)
+    # 🧩 RL 파라미터 업데이트 (Q-learning 스타일)
     # ─────────────────────────────
     def update_theta(self, replay_buffer, gamma=0.99, lr=0.1):
         if len(replay_buffer) < 5:
