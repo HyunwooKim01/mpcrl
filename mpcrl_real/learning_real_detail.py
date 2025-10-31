@@ -41,6 +41,9 @@ class LearningMpcCasADi:
         self.R = np.diag(R)
         self.S = np.diag(S)
         self.alpha_growth = alpha_growth
+        self.theta_omega = np.array([5.0, 5.0, 0.0, 0.0])  # 슬랙 가중치
+        self.theta_y1f = 2.0  # 터미널 온도항 가중치
+
 
         # MPC 초기화
         self._build_mpc()
@@ -52,6 +55,7 @@ class LearningMpcCasADi:
         nx, nu, nd, N = self._nx, self._nu, 4, self.N
         x = cs.MX.sym("x", nx, N + 1)
         u = cs.MX.sym("u", nu, N)
+        sigma = cs.MX.sym("sigma", nx, N)  # 슬랙 변수 σ(k)
         du = cs.MX.sym("du", nu, N)
         x0 = cs.MX.sym("x0", nx)
         d = cs.MX.sym("d", nd)
@@ -104,25 +108,43 @@ class LearningMpcCasADi:
             L = x[3, k]
             Tmin, Tmax = 18.0, 28.0
             Hmin, Hmax = 40.0, 80.0
-            vT = cs.fmax(0, Tmin - T) + cs.fmax(0, T - Tmax)
-            vH = cs.fmax(0, Hmin - H) + cs.fmax(0, H - Hmax)
-            J_slack = 3.0 * (vT**2 + vH**2)
+            # σ 제약식 추가: y_min - σ ≤ y ≤ y_max + σ
+            y_min = np.array([18.0, 40.0, 300.0, 0.0])
+            y_max = np.array([28.0, 80.0, 1000.0, 1.0])
+            g.append(x[:, k] - (y_max + sigma[:, k]))
+            g.append((y_min - sigma[:, k]) - x[:, k])
 
-            gT = cs.exp(-0.5 * cs.power((T - 25.0) / 2.5, 2))
-            gH = cs.exp(-0.5 * cs.power((H - 60.0) / 8.0, 2))
-            gL = cs.tanh(L / 500.0)
+            # Slack penalty (논문식 θ_ωᵀσ⊙y_range)
+            y_range = np.array([1.6, 5.0, 70.0, 1.0])
+            J_slack = cs.dot(self.theta_omega, sigma[:, k] * y_range)
+
+            # Growth proxy + Δgrowth
+            gT = cs.exp(-((T - 25.0) ** 2) / (2 * 3 ** 2))
+            gH = cs.exp(-((H - 70.0) ** 2) / (2 * 10 ** 2))
+            gL = cs.exp(-((L - 300.0) ** 2) / (2 * 100.0 ** 2))
             growth = gT * gH * gL
 
-            J += J_track + J_du + J_energy + J_slack - self.alpha_growth * growth
+            if k == 0:
+                delta_growth = growth
+            else:
+                prev_growth = cs.exp(-((x[0, k-1] - 25.0) ** 2) / (2 * 3 ** 2)) * \
+                            cs.exp(-((x[1, k-1] - 70.0) ** 2) / (2 * 10 ** 2)) * \
+                            cs.exp(-((x[3, k-1] - 300.0) ** 2) / (2 * 100.0 ** 2))
+                delta_growth = growth - prev_growth
 
-        # terminal cost
-        J += 0.5 * cs.mtimes([(x[:, N] - r).T, self.Q, (x[:, N] - r)])
+            # 통합 비용 (논문식 22a 근사)
+            J += J_track + J_du + J_energy + J_slack - self.alpha_growth * delta_growth
+
+        # terminal cost (논문식 θ_{y1,f}(y1(N)-r1)^2)
+        J += self.theta_y1f * cs.sumsqr(x[0, N] - r[0])
 
         w = cs.vertcat(
             cs.reshape(x, -1, 1),
             cs.reshape(u, -1, 1),
             cs.reshape(du, -1, 1),
+            cs.reshape(sigma, -1, 1),
         )
+
         g = cs.vertcat(*g)
         p = cs.vertcat(x0, d, u_prev, r)
 
@@ -135,7 +157,7 @@ class LearningMpcCasADi:
             "print_iteration": False,
         }
         self.solver = cs.nlpsol("solver", "sqpmethod", nlp, opts)
-        self.w0 = np.zeros(((nx * (N + 1)) + (nu * N * 2), 1))
+        self.w0 = np.zeros(((nx * (N + 1)) + (nu * N * 2) + (nx * N), 1))
 
     # ─────────────────────────────────────────────
     # RL(Q-learning) 파라미터 로드
