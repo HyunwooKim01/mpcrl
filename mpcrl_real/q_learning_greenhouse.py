@@ -46,7 +46,7 @@ def load_theta() -> dict:
     os.makedirs(server_dir, exist_ok=True)
     os.makedirs(rpi_dir, exist_ok=True)
 
-    server_path = os.path.join(server_dir, "trained_theta_server.pkl")
+    server_path = os.path.join(server_dir, "trained_theta.pkl")
     local_path  = os.path.join(rpi_dir, "trained_theta.pkl")
 
     default_theta = {
