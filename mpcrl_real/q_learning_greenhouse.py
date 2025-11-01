@@ -117,7 +117,7 @@ def update_theta(theta: Dict, terms: Dict[str,float]):
 # Main Loop
 # ───────────────────────────────────────────────
 def main():
-    broker = "172.27.148.207"
+    broker = "211.106.231.24"
     port = 1883
     farm = "farmA"
     esp = "esp1"
@@ -166,16 +166,18 @@ def main():
                     payload.get("led",0.0)
                 ], dtype=float)
 
-        def on_disconnect(client, userdata, rc):
-            print("⚠️ MQTT disconnected! Retrying...")
-            while not stop_flag["stop"]:
-                try:
-                    client.reconnect()
-                    print("🔁 MQTT reconnected successfully!")
-                    break
-                except Exception as e:
-                    print(f"❌ Reconnect failed: {e}")
-                    time.sleep(5)
+    # MQTT 재연결 콜백
+    def on_disconnect(client, userdata, rc):
+        print("⚠️ MQTT disconnected! Retrying...")
+        while True:
+            try:
+                client.reconnect()
+                print("🔁 MQTT reconnected successfully!")
+                break
+            except Exception as e:
+                print(f"❌ Reconnect failed: {e}")
+                time.sleep(5)
+
 
     # MQTT 연결
     client = mqtt.Client()
