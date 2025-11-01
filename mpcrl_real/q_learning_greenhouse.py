@@ -287,11 +287,11 @@ def main():
         step += 1
 
         if (time.time() - last_save) >= HP.save_interval_s:
-            save_theta(theta, DEFAULT_THETA_PATH)
+            save_theta(theta)
             last_save = time.time()
 
     client.loop_stop()
-    save_theta(theta, DEFAULT_THETA_PATH)
+    save_theta(theta)
     print("✅ RL learning-only (MQTT) finished.")
 
 if __name__ == "__main__":
