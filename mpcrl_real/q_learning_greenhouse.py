@@ -243,7 +243,7 @@ def main():
 
 
     # MQTT 연결
-    client = mqtt.Client()
+    client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
     client.on_message = on_message
     client.on_disconnect = on_disconnect
     
