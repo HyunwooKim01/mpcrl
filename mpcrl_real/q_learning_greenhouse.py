@@ -46,7 +46,7 @@ def load_theta() -> dict:
     os.makedirs(server_dir, exist_ok=True)
     os.makedirs(rpi_dir, exist_ok=True)
 
-    server_path = os.path.join(server_dir, "trained_theta_server.pkl")
+    server_path = os.path.join(server_dir, "trained_theta.pkl")
     local_path  = os.path.join(rpi_dir, "trained_theta.pkl")
 
     default_theta = {
@@ -177,6 +177,27 @@ def update_theta(theta: Dict, terms: Dict[str,float]):
     alpha = float(np.clip(alpha + dalpha, HP.alpha_bounds[0], HP.alpha_bounds[1]))
 
     theta["Q"], theta["R"], theta["S"], theta["alpha_growth"] = Q.tolist(), R.tolist(), S.tolist(), alpha
+
+# ────────────────────────────────
+# 🧾 로그 파일 설정 (RL 전용)
+# ────────────────────────────────
+os.makedirs("logs/RL", exist_ok=True)
+log_path = f"logs/RL/rl_{time.strftime('%Y%m%d_%H%M%S')}.log"
+
+class Tee:
+    def __init__(self, *files):
+        self.files = files
+    def write(self, data):
+        for f in self.files:
+            f.write(data)
+            f.flush()
+    def flush(self):
+        for f in self.files:
+            f.flush()
+
+log_file = open(log_path, "w", buffering=1)
+sys.stdout = Tee(sys.__stdout__, log_file)
+print(f"📝 RL log started → {log_path}")
 
 # ───────────────────────────────────────────────
 # Main Loop

@@ -15,8 +15,8 @@ from real_env import RealEnvironment
 # ────────────────────────────────
 # 🧾 로그 파일 설정
 # ────────────────────────────────
-os.makedirs("logs", exist_ok=True)
-log_path = f"logs/mpc_{time.strftime('%Y%m%d_%H%M%S')}.log"
+os.makedirs("logs/MPC", exist_ok=True)
+log_path = f"logs/MPC/mpc_{time.strftime('%Y%m%d_%H%M%S')}.log"
 
 class Tee:
     def __init__(self, *files):
