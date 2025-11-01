@@ -41,17 +41,14 @@ HP = HyperParams()
 def load_theta() -> dict:
     """서버 θ 기반 복구형 θ 로드"""
 
-    # 폴더 경로
     server_dir = "server_trained"
     rpi_dir = "rpi_trained"
-
     os.makedirs(server_dir, exist_ok=True)
     os.makedirs(rpi_dir, exist_ok=True)
 
     server_path = os.path.join(server_dir, "trained_theta_server.pkl")
     local_path  = os.path.join(rpi_dir, "trained_theta.pkl")
 
-    # 기본 θ (fallback)
     default_theta = {
         "Q": [2.0, 2.0, 0.0, 0.0],
         "R": [0.05, 0.05, 0.02],
@@ -59,7 +56,6 @@ def load_theta() -> dict:
         "alpha_growth": 1.0,
     }
 
-    # 1️⃣ 서버 pretrained θ 불러오기
     server_theta = default_theta.copy()
     if os.path.exists(server_path):
         try:
@@ -71,12 +67,19 @@ def load_theta() -> dict:
                     if k not in tmp:
                         tmp[k] = v
                 server_theta = tmp
+                print("✅ Server θ load complete and validated.")
+            else:
+                print("⚠️ Server θ file format invalid, fallback to default.")
         except Exception as e:
             print(f"⚠️ Failed to load server θ ({e}), using default fallback.")
 
-    # 2️⃣ 로컬 θ 불러오기
+    # 로컬 θ 없을 경우 서버 θ로 초기화
     if not os.path.exists(local_path):
         print("⚠️ No RPi θ found → initializing from server θ")
+        if os.path.exists(server_path):
+            print(f"✅ Using server-trained θ from {server_path}")
+        else:
+            print("⚠️ No server-trained θ found, using default θ.")
         return server_theta
 
     try:
@@ -86,7 +89,6 @@ def load_theta() -> dict:
             print("⚠️ Invalid θ format, restored from server θ")
             return server_theta
 
-        # 누락된 키 자동 보완
         for k, v in server_theta.items():
             if k not in theta:
                 print(f"⚠️ Missing key '{k}' → restored from server θ")
