@@ -37,25 +37,89 @@ class HyperParams:
 HP = HyperParams()
 
 # ───────────────────────────────────────────────
-# θ 로드 / 저장
+# θ 로드 / 저장 (서버 θ 우선, 누락 자동 복구)
 # ───────────────────────────────────────────────
-def load_theta(path: str) -> Dict:
-    if not os.path.exists(path):
-        return {
-            "Q": [2.0, 2.0, 0.0, 0.0],
-            "R": [0.05, 0.05, 0.02],
-            "S": [5.0, 5.0],
-            "alpha_growth": 1.0,
-        }
-    with open(path, "rb") as f:
-        return pickle.load(f)
+def load_theta() -> dict:
+    """서버 θ 기반 복구형 θ 로드"""
 
-def save_theta(theta: Dict, path: str = DEFAULT_THETA_PATH):
+    # 폴더 경로
+    server_dir = "server_trained"
+    rpi_dir = "rpi_trained"
+
+    os.makedirs(server_dir, exist_ok=True)
+    os.makedirs(rpi_dir, exist_ok=True)
+
+    server_path = os.path.join(server_dir, "trained_theta_server.pkl")
+    local_path  = os.path.join(rpi_dir, "trained_theta.pkl")
+
+    # 기본 θ (fallback)
+    default_theta = {
+        "Q": [2.0, 2.0, 0.0, 0.0],
+        "R": [0.05, 0.05, 0.02],
+        "S": [5.0, 5.0],
+        "alpha_growth": 1.0,
+    }
+
+    # 1️⃣ 서버 pretrained θ 불러오기
+    server_theta = default_theta.copy()
+    if os.path.exists(server_path):
+        try:
+            with open(server_path, "rb") as f:
+                tmp = pickle.load(f)
+            if isinstance(tmp, dict):
+                print(f"🌐 Loaded server pretrained θ from {server_path}")
+                for k, v in default_theta.items():
+                    if k not in tmp:
+                        tmp[k] = v
+                server_theta = tmp
+        except Exception as e:
+            print(f"⚠️ Failed to load server θ ({e}), using default fallback.")
+
+    # 2️⃣ 로컬 θ 불러오기
+    if not os.path.exists(local_path):
+        print("⚠️ No RPi θ found → initializing from server θ")
+        return server_theta
+
+    try:
+        with open(local_path, "rb") as f:
+            theta = pickle.load(f)
+        if not isinstance(theta, dict):
+            print("⚠️ Invalid θ format, restored from server θ")
+            return server_theta
+
+        # 누락된 키 자동 보완
+        for k, v in server_theta.items():
+            if k not in theta:
+                print(f"⚠️ Missing key '{k}' → restored from server θ")
+                theta[k] = v
+
+        print(f"✅ θ loaded successfully from {local_path}")
+        return theta
+
+    except Exception as e:
+        print(f"⚠️ θ load failed ({e}) → restored from server θ")
+        return server_theta
+
+
+# ────────────────────────────────
+# θ 저장 (Raspberry Pi 학습 결과 저장 전용)
+# ────────────────────────────────
+def save_theta(theta: dict):
+    """RPi fine-tuned θ 저장 (rpi_trained 폴더에 저장)"""
+    rpi_dir = "rpi_trained"
+    os.makedirs(rpi_dir, exist_ok=True)
+
+    path = os.path.join(rpi_dir, "trained_theta.pkl")
     tmp = path + ".tmp"
-    with open(tmp, "wb") as f:
-        pickle.dump(theta, f)
-    os.replace(tmp, path)
-    print(f"💾 θ saved → {path}")
+
+    try:
+        with open(tmp, "wb") as f:
+            pickle.dump(theta, f)
+        os.replace(tmp, path)
+        print(f"💾 θ saved → {path}")
+    except Exception as e:
+        print(f"❌ Failed to save θ: {e}")
+
 
 # ───────────────────────────────────────────────
 # MPC cost 근사 항 추정
