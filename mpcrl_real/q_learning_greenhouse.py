@@ -18,7 +18,6 @@ from real_env import RealEnvironment  # 보상 계산용 (compute_reward 사용)
 # ───────────────────────────────────────────────
 # 설정
 # ───────────────────────────────────────────────
-DEFAULT_THETA_PATH = "trained_theta.pkl"
 
 @dataclass
 class HyperParams:
@@ -188,7 +187,7 @@ def main():
 
     env = RealEnvironment(broker_host=broker, broker_port=port, farm_id=farm, esp_id=esp)
     crop = env.crop
-    theta = load_theta(DEFAULT_THETA_PATH)
+    theta = load_theta()
     u_prev = np.zeros(3)
     last_save = time.time()
     step = 0
