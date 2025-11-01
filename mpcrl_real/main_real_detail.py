@@ -77,7 +77,7 @@ if __name__ == "__main__":
                 print(f"❌ Reconnect failed: {e}")
                 time.sleep(5)
                 
-    mqtt_client = mqtt.Client()
+    client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
     mqtt_client.on_disconnect = on_disconnect
     
     # ✅ 연결 시도 (성공할 때까지 반복)
